@@ -84,9 +84,7 @@ export interface TestConfig {
  * Test function that demonstrates proper type narrowing
  * Strict mode requires explicit type guards
  */
-export function typeNarrowingTest(
-  value: string | number | undefined
-): string {
+export function typeNarrowingTest(value: string | number | undefined): string {
   if (typeof value === "undefined") {
     return "undefined";
   }
