@@ -1,6 +1,7 @@
 import { defineConfig, envField } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
+import mdx from "@astrojs/mdx";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import {
@@ -15,6 +16,7 @@ import { SITE } from "./src/config";
 export default defineConfig({
   site: SITE.website,
   integrations: [
+    mdx(),
     sitemap({
       filter: page => SITE.showArchives || !page.endsWith("/archives"),
     }),
@@ -50,10 +52,82 @@ export default defineConfig({
   },
   env: {
     schema: {
+      // Phase 1.0 - Current variables
       PUBLIC_GOOGLE_SITE_VERIFICATION: envField.string({
         access: "public",
         context: "client",
         optional: true,
+      }),
+
+      // Phase 1.1 - Newsletter integration (Buttondown)
+      BUTTONDOWN_API_KEY: envField.string({
+        access: "secret",
+        context: "server",
+        optional: true,
+      }),
+      PUBLIC_BUTTONDOWN_USERNAME: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+
+      // Phase 2.0 - Polling system (Cloudflare)
+      CLOUDFLARE_ACCOUNT_ID: envField.string({
+        access: "secret",
+        context: "server",
+        optional: true,
+      }),
+      CLOUDFLARE_API_TOKEN: envField.string({
+        access: "secret",
+        context: "server",
+        optional: true,
+      }),
+      CLOUDFLARE_D1_DATABASE_ID: envField.string({
+        access: "secret",
+        context: "server",
+        optional: true,
+      }),
+
+      // Phase 2.0 - Turnstile CAPTCHA (anti-bot)
+      PUBLIC_TURNSTILE_SITE_KEY: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+      TURNSTILE_SECRET_KEY: envField.string({
+        access: "secret",
+        context: "server",
+        optional: true,
+      }),
+
+      // Analytics (TBD)
+      PUBLIC_PLAUSIBLE_DOMAIN: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+      PUBLIC_PLAUSIBLE_API_HOST: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+      PUBLIC_FATHOM_SITE_ID: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+      PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN: envField.string({
+        access: "public",
+        context: "client",
+        optional: true,
+      }),
+
+      // Development
+      DEBUG: envField.boolean({
+        access: "public",
+        context: "server",
+        optional: true,
+        default: false,
       }),
     },
   },
