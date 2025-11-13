@@ -1,0 +1,403 @@
+---
+/**
+ * Collections Debug Page
+ *
+ * This page provides tools for testing and debugging content collections
+ * in the browser console. It exposes collection data and helper functions
+ * to the global window object.
+ *
+ * Access this page at: http://localhost:4321/debug/collections
+ *
+ * Available in browser console:
+ * - window.collections - All collection data
+ * - window.queryBooks() - Query books with filters
+ * - window.queryNews() - Query news with filters
+ * - window.showExamples() - Display example queries
+ */
+
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+
+// Fetch collections at build time
+const books = await getCollection('books');
+const news = await getCollection('news');
+const blog = await getCollection('blog');
+
+// Prepare serializable data (convert Dates to ISO strings)
+const serializableBooks = books.map(book => ({
+  id: book.id,
+  slug: book.id.replace(/\.mdx?$/, ''),
+  data: {
+    ...book.data,
+    publishDate: book.data.publishDate.toISOString(),
+  },
+}));
+
+const serializableNews = news.map(post => ({
+  id: post.id,
+  slug: post.id.replace(/\.mdx?$/, ''),
+  data: {
+    ...post.data,
+    publishDate: post.data.publishDate.toISOString(),
+  },
+}));
+
+const serializableBlog = blog.map(post => ({
+  id: post.id,
+  slug: post.id.replace(/\.mdx?$/, ''),
+  data: {
+    ...post.data,
+    pubDatetime: post.data.pubDatetime.toISOString(),
+    modDatetime: post.data.modDatetime?.toISOString() || null,
+  },
+}));
+
+const collectionsData = {
+  books: serializableBooks,
+  news: serializableNews,
+  blog: serializableBlog,
+};
+---
+
+<Layout
+  title="Collections Debug Console"
+  description="Interactive testing tool for Astro content collections"
+>
+  <main class="container mx-auto px-4 py-8 max-w-4xl">
+    <h1 class="text-4xl font-bold mb-4">Content Collections Debug Console</h1>
+
+    <div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 mb-6">
+      <p class="text-yellow-800 dark:text-yellow-200">
+        <strong>⚠️ Development Only:</strong> This page is for testing content collections.
+        Remove or restrict access in production.
+      </p>
+    </div>
+
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3">Collection Summary</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+          <h3 class="font-bold text-lg">Books</h3>
+          <p class="text-3xl">{books.length}</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Published: {books.filter(b => b.data.status === 'published').length}
+            <br />
+            Upcoming: {books.filter(b => b.data.status === 'upcoming').length}
+            <br />
+            Draft: {books.filter(b => b.data.status === 'draft').length}
+          </p>
+        </div>
+
+        <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+          <h3 class="font-bold text-lg">News</h3>
+          <p class="text-3xl">{news.length}</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Releases: {news.filter(n => n.data.category === 'releases').length}
+            <br />
+            Events: {news.filter(n => n.data.category === 'events').length}
+            <br />
+            Updates: {news.filter(n => n.data.category === 'updates').length}
+          </p>
+        </div>
+
+        <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+          <h3 class="font-bold text-lg">Blog</h3>
+          <p class="text-3xl">{blog.length}</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Posts: {blog.filter(p => !p.data.draft).length}
+            <br />
+            Drafts: {blog.filter(p => p.data.draft).length}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3">Browser Console Access</h2>
+      <p class="mb-4">
+        Open your browser's developer console (F12) and try these commands:
+      </p>
+
+      <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm mb-4 overflow-x-auto">
+        <div class="mb-4">
+          <div class="text-gray-500">// Access all collections data</div>
+          <div>window.collections</div>
+        </div>
+
+        <div class="mb-4">
+          <div class="text-gray-500">// View all books</div>
+          <div>window.collections.books</div>
+        </div>
+
+        <div class="mb-4">
+          <div class="text-gray-500">// Query upcoming books</div>
+          <div>{'window.queryBooks({ status: \'upcoming\' })'}</div>
+        </div>
+
+        <div class="mb-4">
+          <div class="text-gray-500">// Query news by category</div>
+          <div>{'window.queryNews({ category: \'releases\' })'}</div>
+        </div>
+
+        <div class="mb-4">
+          <div class="text-gray-500">// Sort books by publish date</div>
+          <div>{'window.queryBooks({}, { sortBy: \'publishDate\', order: \'desc\' })'}</div>
+        </div>
+
+        <div class="mb-4">
+          <div class="text-gray-500">// Show all available examples</div>
+          <div>window.showExamples()</div>
+        </div>
+
+        <div class="mb-4">
+          <div class="text-gray-500">// Fetch via API endpoint</div>
+          <div>await fetch('/api/collections.json').then(r => r.json())</div>
+        </div>
+      </div>
+
+      <button
+        id="copyExamples"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+      >
+        Copy Examples to Clipboard
+      </button>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3">Books Collection</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white dark:bg-gray-800 border">
+          <thead>
+            <tr class="bg-gray-100 dark:bg-gray-700">
+              <th class="px-4 py-2 text-left">Title</th>
+              <th class="px-4 py-2 text-left">Status</th>
+              <th class="px-4 py-2 text-left">Publish Date</th>
+              <th class="px-4 py-2 text-left">Series</th>
+            </tr>
+          </thead>
+          <tbody>
+            {books.map(book => (
+              <tr class="border-t dark:border-gray-700">
+                <td class="px-4 py-2">{book.data.title}</td>
+                <td class="px-4 py-2">
+                  <span class={`px-2 py-1 rounded text-sm ${
+                    book.data.status === 'published' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
+                    book.data.status === 'upcoming' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
+                    'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                  }`}>
+                    {book.data.status}
+                  </span>
+                </td>
+                <td class="px-4 py-2">{book.data.publishDate.toLocaleDateString()}</td>
+                <td class="px-4 py-2">{book.data.series || '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-3">News Collection</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white dark:bg-gray-800 border">
+          <thead>
+            <tr class="bg-gray-100 dark:bg-gray-700">
+              <th class="px-4 py-2 text-left">Title</th>
+              <th class="px-4 py-2 text-left">Category</th>
+              <th class="px-4 py-2 text-left">Publish Date</th>
+              <th class="px-4 py-2 text-left">Draft</th>
+            </tr>
+          </thead>
+          <tbody>
+            {news.map(post => (
+              <tr class="border-t dark:border-gray-700">
+                <td class="px-4 py-2">{post.data.title}</td>
+                <td class="px-4 py-2">
+                  <span class={`px-2 py-1 rounded text-sm ${
+                    post.data.category === 'releases' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' :
+                    post.data.category === 'events' ? 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300' :
+                    'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-300'
+                  }`}>
+                    {post.data.category}
+                  </span>
+                </td>
+                <td class="px-4 py-2">{post.data.publishDate.toLocaleDateString()}</td>
+                <td class="px-4 py-2">{post.data.draft ? '✓' : '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-semibold mb-3">API Endpoints</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <a href="/api/collections.json" target="_blank" class="text-blue-600 hover:underline">
+            /api/collections.json
+          </a> - All collections as JSON
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <script is:inline define:vars={{ collectionsData }}>
+    // Expose collections data to window object
+    window.collections = collectionsData;
+
+    // Helper function to query books
+    window.queryBooks = function(filters = {}, options = {}) {
+      let results = [...window.collections.books];
+
+      // Apply filters
+      if (filters.status) {
+        results = results.filter(b => b.data.status === filters.status);
+      }
+      if (filters.series) {
+        results = results.filter(b => b.data.series === filters.series);
+      }
+      if (filters.publishedAfter) {
+        results = results.filter(b => new Date(b.data.publishDate) > new Date(filters.publishedAfter));
+      }
+      if (filters.publishedBefore) {
+        results = results.filter(b => new Date(b.data.publishDate) < new Date(filters.publishedBefore));
+      }
+
+      // Apply sorting
+      if (options.sortBy) {
+        const order = options.order || 'asc';
+        results.sort((a, b) => {
+          let aVal = a.data[options.sortBy];
+          let bVal = b.data[options.sortBy];
+
+          if (options.sortBy === 'publishDate') {
+            aVal = new Date(aVal);
+            bVal = new Date(bVal);
+          }
+
+          if (order === 'asc') {
+            return aVal > bVal ? 1 : -1;
+          } else {
+            return aVal < bVal ? 1 : -1;
+          }
+        });
+      }
+
+      return results;
+    };
+
+    // Helper function to query news
+    window.queryNews = function(filters = {}, options = {}) {
+      let results = [...window.collections.news];
+
+      // Apply filters
+      if (filters.category) {
+        results = results.filter(n => n.data.category === filters.category);
+      }
+      if (filters.draft !== undefined) {
+        results = results.filter(n => n.data.draft === filters.draft);
+      }
+      if (filters.publishedAfter) {
+        results = results.filter(n => new Date(n.data.publishDate) > new Date(filters.publishedAfter));
+      }
+      if (filters.publishedBefore) {
+        results = results.filter(n => new Date(n.data.publishDate) < new Date(filters.publishedBefore));
+      }
+
+      // Apply sorting
+      if (options.sortBy) {
+        const order = options.order || 'asc';
+        results.sort((a, b) => {
+          let aVal = a.data[options.sortBy];
+          let bVal = b.data[options.sortBy];
+
+          if (options.sortBy === 'publishDate') {
+            aVal = new Date(aVal);
+            bVal = new Date(bVal);
+          }
+
+          if (order === 'asc') {
+            return aVal > bVal ? 1 : -1;
+          } else {
+            return aVal < bVal ? 1 : -1;
+          }
+        });
+      }
+
+      return results;
+    };
+
+    // Show example queries
+    window.showExamples = function() {
+      console.log('%cContent Collections - Example Queries', 'font-size: 16px; font-weight: bold; color: #0066cc;');
+      console.log('');
+      console.log('%c📚 Books', 'font-weight: bold; color: #00aa00;');
+      console.log('  window.collections.books - All books');
+      console.log('  window.queryBooks({ status: "published" }) - Published books only');
+      console.log('  window.queryBooks({ status: "upcoming" }) - Upcoming books only');
+      console.log('  window.queryBooks({ series: "The Digital Conscience Trilogy" }) - Books in series');
+      console.log('  window.queryBooks({}, { sortBy: "publishDate", order: "desc" }) - Sort by date (newest first)');
+      console.log('');
+      console.log('%c📰 News', 'font-weight: bold; color: #ff6600;');
+      console.log('  window.collections.news - All news posts');
+      console.log('  window.queryNews({ category: "releases" }) - Release announcements');
+      console.log('  window.queryNews({ category: "events" }) - Event posts');
+      console.log('  window.queryNews({ category: "updates" }) - General updates');
+      console.log('  window.queryNews({ draft: false }) - Published posts only');
+      console.log('  window.queryNews({}, { sortBy: "publishDate", order: "desc" }) - Sort by date (newest first)');
+      console.log('');
+      console.log('%c🔍 Advanced Queries', 'font-weight: bold; color: #cc00cc;');
+      console.log('  window.queryBooks({ publishedAfter: "2025-01-01" }) - Books published after date');
+      console.log('  window.collections.books.filter(b => b.data.buyLinks.length > 0) - Books with buy links');
+      console.log('  window.collections.books.filter(b => b.data.series).length - Count books in series');
+      console.log('');
+      console.log('%c🌐 API Endpoint', 'font-weight: bold; color: #0099cc;');
+      console.log('  await fetch("/api/collections.json").then(r => r.json()) - Fetch all collections via API');
+    };
+
+    // Button functionality
+    document.getElementById('copyExamples')?.addEventListener('click', () => {
+      const examples = `// Content Collections - Browser Console Examples
+
+// View all collections
+window.collections
+
+// Books queries
+window.collections.books
+window.queryBooks({ status: 'upcoming' })
+window.queryBooks({ series: 'The Digital Conscience Trilogy' })
+window.queryBooks({}, { sortBy: 'publishDate', order: 'desc' })
+
+// News queries
+window.collections.news
+window.queryNews({ category: 'releases' })
+window.queryNews({ draft: false })
+window.queryNews({}, { sortBy: 'publishDate', order: 'desc' })
+
+// API endpoint
+await fetch('/api/collections.json').then(r => r.json())
+
+// Show all examples
+window.showExamples()`;
+
+      navigator.clipboard.writeText(examples).then(() => {
+        const btn = document.getElementById('copyExamples');
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('bg-green-600', 'hover:bg-green-700');
+        btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+          btn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+        }, 2000);
+      });
+    });
+
+    // Log welcome message
+    console.log('%c🚀 Collections Debug Console Loaded', 'font-size: 14px; font-weight: bold; color: #0066cc;');
+    console.log('Type window.showExamples() to see available queries');
+  </script>
+</Layout>

@@ -5,61 +5,73 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
-import Card from "@/components/Card.astro";
+import BookCard from "@/components/BookCard.astro";
+import NewsCard from "@/components/NewsCard.astro";
 import Hr from "@/components/Hr.astro";
-import getSortedPosts from "@/utils/getSortedPosts";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 
-const posts = await getCollection("blog");
+// Get books and news from content collections
+const allBooks = await getCollection("books");
+const allNews = await getCollection("news");
 
-const sortedPosts = getSortedPosts(posts);
-const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+// Sort books by publish date (newest first) and filter out drafts
+const publishedBooks = allBooks
+  .filter(({ data }) => data.status !== "draft")
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+// Get the latest book
+const latestBook = publishedBooks[0];
+
+// Sort news by publish date (newest first) and filter out drafts
+const publishedNews = allNews
+  .filter(({ data }) => !data.draft)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+// Get recent news (limit to 3)
+const recentNews = publishedNews.slice(0, 3);
 ---
 
 <Layout>
   <Header />
   <main id="main-content" data-layout="index">
-    <section id="hero" class="pt-8 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Cache McClure
-      </h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
-
-      <p>
-        Science fiction author exploring the intersections of technology,
-        humanity, and the future. Welcome to my corner of the web where I share
-        updates about my books, writing process, and thoughts on the genre I love.
-      </p>
-      <p class="mt-2">
-        Check out my <LinkButton
-          class="underline decoration-dashed underline-offset-4 hover:text-accent"
-          href="/posts/"
+    <!-- Hero Section -->
+    <section id="hero" class="pt-8 pb-12">
+      <div class="flex items-baseline gap-3">
+        <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-6xl">
+          Cache McClure
+        </h1>
+        <a
+          target="_blank"
+          href="/rss.xml"
+          class="inline-block"
+          aria-label="rss feed"
+          title="RSS Feed"
         >
-          latest posts
-        </LinkButton> or explore my books.
+          <IconRss
+            width={20}
+            height={20}
+            class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
+          />
+          <span class="sr-only">RSS Feed</span>
+        </a>
+      </div>
+
+      <p class="text-xl font-medium text-accent sm:text-2xl">
+        Science Fiction Author
       </p>
+
+      <p class="mt-4 text-lg leading-relaxed">
+        Exploring the intersections of technology, humanity, and the future.
+        Welcome to my corner of the web where I share updates about my books,
+        writing process, and thoughts on the genre I love.
+      </p>
+
       {
-        // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
-          <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Connect:</div>
+          <div class="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+            <div class="font-medium">Connect:</div>
             <Socials />
           </div>
         )
@@ -68,42 +80,65 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
     <Hr />
 
+    <!-- Latest Book Section -->
     {
-      featuredPosts.length > 0 && (
-        <>
-          <section id="featured" class="pt-12 pb-6">
-            <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
-            <ul>
-              {featuredPosts.map(data => (
-                <Card variant="h3" {...data} />
-              ))}
-            </ul>
-          </section>
-          {recentPosts.length > 0 && <Hr />}
-        </>
-      )
-    }
-
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
-          <ul>
-            {recentPosts.map(
-              (data, index) =>
-                index < SITE.postPerIndex && <Card variant="h3" {...data} />
-            )}
-          </ul>
+      latestBook && (
+        <section id="latest-book" class="pt-12 pb-6">
+          <div class="mb-6 flex items-center justify-between">
+            <h2 class="text-3xl font-bold tracking-wide">Latest Book</h2>
+            <LinkButton
+              href="/books/"
+              class="text-sm font-medium hover:underline"
+            >
+              View All Books
+              <IconArrowRight class="ms-1 inline-block h-4 w-4 rtl:-rotate-180" />
+            </LinkButton>
+          </div>
+          <BookCard variant="h2" {...latestBook} />
         </section>
       )
     }
 
-    <div class="my-8 text-center">
-      <LinkButton href="/posts/">
-        All Posts
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-    </div>
+    {recentNews.length > 0 && <Hr />}
+
+    <!-- Recent News Section -->
+    {
+      recentNews.length > 0 && (
+        <section id="recent-news" class="pt-12 pb-6">
+          <div class="mb-6 flex items-center justify-between">
+            <h2 class="text-3xl font-bold tracking-wide">Recent News</h2>
+            <LinkButton
+              href="/news/"
+              class="text-sm font-medium hover:underline"
+            >
+              View All News
+              <IconArrowRight class="ms-1 inline-block h-4 w-4 rtl:-rotate-180" />
+            </LinkButton>
+          </div>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {recentNews.map((newsPost) => (
+              <NewsCard variant="h3" {...newsPost} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <Hr />
+
+    <!-- Newsletter CTA Placeholder -->
+    <section id="newsletter-cta" class="py-12">
+      <div class="rounded-lg border-2 border-accent bg-muted p-8 text-center">
+        <h2 class="text-2xl font-bold sm:text-3xl">Stay Updated</h2>
+        <p class="mt-3 text-lg text-foreground/80">
+          Get the latest news about book releases, events, and exclusive content
+          delivered to your inbox.
+        </p>
+        <p class="mt-4 text-sm font-medium text-accent">
+          Newsletter signup coming soon!
+        </p>
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>

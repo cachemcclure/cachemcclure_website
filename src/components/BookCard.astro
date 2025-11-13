@@ -1,0 +1,103 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { slugifyStr } from "@/utils/slugify";
+
+export interface Props extends CollectionEntry<"books"> {
+  variant?: "h2" | "h3";
+}
+
+const { variant = "h2", data, id } = Astro.props;
+
+const {
+  title,
+  description,
+  coverImage,
+  series,
+  seriesOrder,
+  status,
+} = data;
+
+const headerProps = {
+  style: { viewTransitionName: slugifyStr(title) },
+  class: "text-xl font-bold decoration-dashed hover:underline",
+};
+
+const statusBadgeClass = {
+  published: "bg-green-600 text-white",
+  upcoming: "bg-blue-600 text-white",
+  draft: "bg-gray-600 text-white",
+}[status];
+
+const statusLabel = {
+  published: "Published",
+  upcoming: "Coming Soon",
+  draft: "Draft",
+}[status];
+---
+
+<article
+  class="group my-6 flex flex-col gap-4 rounded-lg border border-border p-4 transition-all hover:border-accent hover:shadow-md sm:flex-row sm:gap-6"
+>
+  <a
+    href={`/books/${id}`}
+    class="flex-shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+  >
+    <img
+      src={coverImage}
+      alt={`Cover of ${title}`}
+      class="h-48 w-32 rounded object-cover shadow-md transition-transform group-hover:scale-105 sm:h-56 sm:w-40"
+      loading="lazy"
+    />
+  </a>
+
+  <div class="flex flex-1 flex-col">
+    <div class="mb-2 flex flex-wrap items-center gap-2">
+      <span class={`rounded px-2 py-1 text-xs font-semibold uppercase ${statusBadgeClass}`}>
+        {statusLabel}
+      </span>
+      {
+        series && (
+          <span class="rounded bg-muted px-2 py-1 text-xs font-medium text-foreground">
+            {series} {seriesOrder && `#${seriesOrder}`}
+          </span>
+        )
+      }
+    </div>
+
+    <a
+      href={`/books/${id}`}
+      class="inline-block text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
+    >
+      {
+        variant === "h2" ? (
+          <h2 {...headerProps}>{title}</h2>
+        ) : (
+          <h3 {...headerProps}>{title}</h3>
+        )
+      }
+    </a>
+
+    <p class="mt-2 flex-1 text-foreground/80">{description}</p>
+
+    <div class="mt-4">
+      <a
+        href={`/books/${id}`}
+        class="inline-flex items-center font-medium text-accent hover:underline"
+      >
+        Learn More
+        <svg
+          class="ml-1 h-4 w-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</article>
