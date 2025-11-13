@@ -53,3 +53,7 @@ test-results/
 # Cloudflare
 .wrangler/
 .dev.vars
+
+# Project documentation (local only)
+CLAUDE.md
+planning/
