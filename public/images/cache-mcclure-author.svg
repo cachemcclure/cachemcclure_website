@@ -1,0 +1,58 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3730a3;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="800" fill="url(#bgGradient)"/>
+
+  <!-- Decorative circuit pattern -->
+  <g opacity="0.1">
+    <circle cx="150" cy="150" r="80" fill="none" stroke="#fff" stroke-width="2"/>
+    <circle cx="650" cy="200" r="60" fill="none" stroke="#fff" stroke-width="2"/>
+    <circle cx="700" cy="600" r="100" fill="none" stroke="#fff" stroke-width="2"/>
+    <line x1="150" y1="150" x2="350" y2="250" stroke="#fff" stroke-width="2"/>
+    <line x1="450" y1="350" x2="650" y2="200" stroke="#fff" stroke-width="2"/>
+  </g>
+
+  <!-- Silhouette figure -->
+  <g>
+    <!-- Head/Face circle -->
+    <circle cx="400" cy="320" r="100" fill="#4c1d95" opacity="0.9"/>
+    <circle cx="400" cy="320" r="95" fill="url(#accentGradient)"/>
+
+    <!-- Shoulders/Body -->
+    <ellipse cx="400" cy="520" rx="180" ry="140" fill="#4c1d95" opacity="0.9"/>
+    <ellipse cx="400" cy="520" rx="175" ry="135" fill="url(#accentGradient)"/>
+
+    <!-- Minimal facial features -->
+    <circle cx="380" cy="310" r="4" fill="#1e3a8a" opacity="0.6"/>
+    <circle cx="420" cy="310" r="4" fill="#1e3a8a" opacity="0.6"/>
+    <path d="M 380 345 Q 400 355 420 345" stroke="#1e3a8a" stroke-width="3" fill="none" opacity="0.4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Tech/Sci-fi elements -->
+  <g opacity="0.3">
+    <!-- Corner brackets (sci-fi frame) -->
+    <path d="M 100 100 L 100 150 M 100 100 L 150 100" stroke="#8b5cf6" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 700 100 L 700 150 M 700 100 L 650 100" stroke="#8b5cf6" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 100 700 L 100 650 M 100 700 L 150 700" stroke="#8b5cf6" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 700 700 L 700 650 M 700 700 L 650 700" stroke="#8b5cf6" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Text overlay -->
+  <text x="400" y="720" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#e0e7ff" text-anchor="middle" opacity="0.8">
+    CACHE McCLURE
+  </text>
+  <text x="400" y="755" font-family="Arial, sans-serif" font-size="18" fill="#c7d2fe" text-anchor="middle" opacity="0.6">
+    Author Photo Placeholder
+  </text>
+</svg>
