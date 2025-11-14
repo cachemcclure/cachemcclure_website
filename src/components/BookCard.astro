@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@/utils/slugify";
+import Datetime from "./Datetime.astro";
 
 export interface Props extends CollectionEntry<"books"> {
   variant?: "h2" | "h3";
@@ -15,6 +16,7 @@ const {
   series,
   seriesOrder,
   status,
+  publishDate,
 } = data;
 
 const headerProps = {
@@ -76,6 +78,10 @@ const statusLabel = {
         )
       }
     </a>
+
+    <div class="mt-1">
+      <Datetime pubDatetime={publishDate} modDatetime={null} timezone={undefined} />
+    </div>
 
     <p class="mt-2 flex-1 text-foreground/80">{description}</p>
 
