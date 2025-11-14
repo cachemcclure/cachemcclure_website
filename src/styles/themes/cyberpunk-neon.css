@@ -1,0 +1,166 @@
+/*
+ * THEME 1: CYBERPUNK NEON
+ * Modern sci-fi aesthetic with vibrant neon accents
+ * Inspired by 2025 web design trends: electric blues, neon glows, bold typography
+ */
+
+@import "tailwindcss";
+@import "../typography.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root,
+html[data-theme="light"] {
+  /* Light mode - Clean white with neon blue accents */
+  --background: #ffffff;
+  --foreground: #0a0e27;
+  --accent: #00f0ff; /* Neon cyan */
+  --accent-glow: #00f0ff40;
+  --muted: #f5f5f7;
+  --border: #e1e4e8;
+  --card-bg: #fafbfc;
+}
+
+html[data-theme="dark"] {
+  /* Dark mode - Deep space with neon accents */
+  --background: #0a0e27; /* Deep space blue-black */
+  --foreground: #e4e7eb;
+  --accent: #00f0ff; /* Neon cyan */
+  --accent-glow: #00f0ff40;
+  --accent-secondary: #ff2e97; /* Neon pink */
+  --muted: #1a1f3a;
+  --border: #2a3152;
+  --card-bg: #14182e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  /* Custom spacing for wider layouts */
+  --container-4xl: 72rem;
+  --container-5xl: 80rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-accent;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--muted);
+  }
+
+  html {
+    @apply overflow-y-scroll scroll-smooth;
+  }
+
+  body {
+    /* Modern sans-serif stack - NO MONOSPACE! */
+    @apply flex min-h-svh flex-col bg-background text-foreground selection:bg-accent/20 selection:text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'SF Pro Display', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.011em; /* Tighter, more modern */
+  }
+
+  /* Bold, modern headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  a,
+  button {
+    @apply outline-offset-2 outline-accent focus-visible:outline-2 transition-all duration-200;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  section,
+  footer {
+    @apply mx-auto max-w-app px-6 lg:px-8;
+  }
+}
+
+@utility max-w-app {
+  @apply max-w-5xl; /* Wider, more modern */
+}
+
+/* Neon glow effect for accent elements */
+.active-nav {
+  @apply relative;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.active-nav::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow), 0 0 16px var(--accent-glow);
+}
+
+/* Neon button styles */
+.btn-neon {
+  @apply relative px-6 py-3 font-semibold rounded-lg overflow-hidden;
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+  background: var(--accent);
+  color: var(--background);
+  box-shadow: 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* Card glow effects */
+.card-glow {
+  transition: all 0.3s ease;
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 20px var(--accent-glow);
+  border-color: var(--accent);
+}
+
+/* Smooth animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */
+:target {
+  scroll-margin-block: 2rem;
+}

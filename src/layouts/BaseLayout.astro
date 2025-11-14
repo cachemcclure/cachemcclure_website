@@ -1,0 +1,73 @@
+---
+/**
+ * BaseLayout - Complete page layout with Header, Footer, and meta tags
+ *
+ * This is the main layout that should be used for most pages.
+ * It wraps the HTML shell (Layout.astro) and automatically includes:
+ * - Header component with navigation
+ * - Footer component with social links
+ * - Main content wrapper with semantic HTML
+ * - All SEO meta tags, Open Graph, and structured data
+ *
+ * Usage:
+ * ```astro
+ * import BaseLayout from "@/layouts/BaseLayout.astro";
+ *
+ * <BaseLayout title="Page Title" description="Page description">
+ *   <section>Your content here</section>
+ * </BaseLayout>
+ * ```
+ */
+
+import Layout, { type Props as LayoutProps } from "./Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+export interface Props extends LayoutProps {
+  /**
+   * Whether to include the Header component
+   * @default true
+   */
+  includeHeader?: boolean;
+
+  /**
+   * Whether to include the Footer component
+   * @default true
+   */
+  includeFooter?: boolean;
+
+  /**
+   * Whether to include margin-top on Footer
+   * @default true
+   */
+  footerMarginTop?: boolean;
+
+  /**
+   * Custom class for the main element
+   */
+  mainClass?: string;
+
+  /**
+   * Custom ID for the main element
+   * @default "main-content"
+   */
+  mainId?: string;
+}
+
+const {
+  includeHeader = true,
+  includeFooter = true,
+  footerMarginTop = true,
+  mainClass = "",
+  mainId = "main-content",
+  ...layoutProps
+} = Astro.props;
+---
+
+<Layout {...layoutProps}>
+  {includeHeader && <Header />}
+  <main id={mainId} class={mainClass}>
+    <slot />
+  </main>
+  {includeFooter && <Footer noMarginTop={!footerMarginTop} />}
+</Layout>

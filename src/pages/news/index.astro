@@ -1,0 +1,255 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/layouts/Main.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import NewsCard from "@/components/NewsCard.astro";
+import { SITE } from "@/config";
+
+// Query all news posts and filter out drafts
+const allNews = await getCollection("news");
+const publishedNews = allNews
+  .filter(({ data }) => !data.draft)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+// Extract unique categories for filtering
+const allCategories = ["releases", "events", "updates"] as const;
+
+// Get filter parameters from URL
+const url = new URL(Astro.request.url);
+const filterCategory = url.searchParams.get("category");
+const page = parseInt(url.searchParams.get("page") || "1");
+
+// Apply category filter
+let filteredNews = publishedNews;
+
+if (filterCategory && allCategories.includes(filterCategory as any)) {
+  filteredNews = filteredNews.filter(
+    post => post.data.category === filterCategory
+  );
+}
+
+// Pagination setup
+const postsPerPage = SITE.postPerPage || 10;
+const totalPosts = filteredNews.length;
+const totalPages = Math.ceil(totalPosts / postsPerPage);
+const currentPage = Math.min(Math.max(1, page), totalPages || 1);
+const startIndex = (currentPage - 1) * postsPerPage;
+const endIndex = startIndex + postsPerPage;
+const paginatedNews = filteredNews.slice(startIndex, endIndex);
+
+// Helper function to build pagination URL
+const buildPageUrl = (pageNum: number) => {
+  const params = new URLSearchParams();
+  if (filterCategory) params.set("category", filterCategory);
+  if (pageNum > 1) params.set("page", pageNum.toString());
+  const query = params.toString();
+  return `/news${query ? `?${query}` : ""}`;
+};
+
+const pageTitle = "News";
+const pageDesc = "Latest updates, book releases, and events from Cache McClure.";
+
+const categoryLabels = {
+  releases: "Releases",
+  events: "Events",
+  updates: "Updates",
+};
+
+// Build pagination page numbers array
+const paginationItems: Array<{
+  type: "page" | "ellipsis";
+  pageNum?: number;
+  isCurrent?: boolean;
+}> = [];
+
+if (totalPages > 1) {
+  for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+    // Show first page, last page, current page, and pages around current
+    const showPage =
+      pageNum === 1 ||
+      pageNum === totalPages ||
+      (pageNum >= currentPage - 1 && pageNum <= currentPage + 1);
+
+    // Show ellipsis
+    const showEllipsisBefore = pageNum === currentPage - 2 && currentPage > 3;
+    const showEllipsisAfter =
+      pageNum === currentPage + 2 && currentPage < totalPages - 2;
+
+    if (showEllipsisBefore || showEllipsisAfter) {
+      paginationItems.push({ type: "ellipsis" });
+    } else if (showPage) {
+      paginationItems.push({
+        type: "page",
+        pageNum,
+        isCurrent: pageNum === currentPage,
+      });
+    }
+  }
+}
+---
+
+<Layout title={`${pageTitle} | ${SITE.title}`} description={pageDesc}>
+  <Header activeNav="news" />
+  <Main pageTitle={pageTitle} pageDesc={pageDesc}>
+    <!-- Category Filter Controls -->
+    {publishedNews.length > 0 && (
+      <div class="mb-8 flex flex-wrap gap-4">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-sm font-semibold text-foreground/80">Category:</span>
+          <a
+            href="/news"
+            class={`rounded-full border px-3 py-1 text-sm transition-colors ${
+              !filterCategory
+                ? "border-accent bg-accent text-white"
+                : "border-border bg-muted hover:border-accent"
+            }`}
+          >
+            All
+          </a>
+          {allCategories.map(category => (
+            <a
+              href={`/news?category=${category}`}
+              class={`rounded-full border px-3 py-1 text-sm transition-colors ${
+                filterCategory === category
+                  ? "border-accent bg-accent text-white"
+                  : "border-border bg-muted hover:border-accent"
+              }`}
+            >
+              {categoryLabels[category]}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- News List -->
+    {paginatedNews.length === 0 ? (
+      <!-- Empty State -->
+      <div class="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-border bg-muted p-8 text-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="mb-4 h-16 w-16 text-foreground/30"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+          />
+        </svg>
+        <h2 class="mb-2 text-xl font-bold text-foreground">No news posts found</h2>
+        <p class="mb-4 text-foreground/70">
+          {filterCategory
+            ? "Try selecting a different category to see more posts."
+            : "Check back soon for updates!"}
+        </p>
+        {filterCategory && (
+          <a
+            href="/news"
+            class="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 font-semibold text-white transition-colors hover:bg-accent/90"
+          >
+            Clear Filter
+          </a>
+        )}
+      </div>
+    ) : (
+      <div class="space-y-4">
+        {paginatedNews.map(post => (
+          <NewsCard variant="h2" {...post} />
+        ))}
+      </div>
+    )}
+
+    <!-- Pagination Controls -->
+    {totalPages > 1 && paginatedNews.length > 0 && (
+      <nav class="mt-8 flex items-center justify-center gap-2" aria-label="Pagination">
+        {/* Previous Button */}
+        {currentPage > 1 ? (
+          <a
+            href={buildPageUrl(currentPage - 1)}
+            class="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent hover:bg-accent hover:text-white"
+            aria-label="Previous page"
+          >
+            Previous
+          </a>
+        ) : (
+          <span
+            class="rounded-lg border border-border bg-muted px-4 py-2 text-sm font-medium text-foreground/40"
+            aria-disabled="true"
+          >
+            Previous
+          </span>
+        )}
+
+        {/* Page Numbers */}
+        <div class="flex gap-1">
+          {paginationItems.map((item) => (
+            item.type === "ellipsis" ? (
+              <span class="flex h-10 w-10 items-center justify-center text-foreground/40">
+                ...
+              </span>
+            ) : item.isCurrent ? (
+              <span
+                class="flex h-10 w-10 items-center justify-center rounded-lg border border-accent bg-accent font-semibold text-white"
+                aria-current="page"
+              >
+                {item.pageNum}
+              </span>
+            ) : (
+              <a
+                href={buildPageUrl(item.pageNum!)}
+                class="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background text-sm font-medium text-foreground transition-colors hover:border-accent hover:bg-accent/10"
+                aria-label={`Go to page ${item.pageNum}`}
+              >
+                {item.pageNum}
+              </a>
+            )
+          ))}
+        </div>
+
+        {/* Next Button */}
+        {currentPage < totalPages ? (
+          <a
+            href={buildPageUrl(currentPage + 1)}
+            class="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent hover:bg-accent hover:text-white"
+            aria-label="Next page"
+          >
+            Next
+          </a>
+        ) : (
+          <span
+            class="rounded-lg border border-border bg-muted px-4 py-2 text-sm font-medium text-foreground/40"
+            aria-disabled="true"
+          >
+            Next
+          </span>
+        )}
+      </nav>
+    )}
+
+    <!-- Results Count -->
+    {paginatedNews.length > 0 && (
+      <div class="mt-8 text-center text-sm text-foreground/60">
+        Showing {startIndex + 1}-{Math.min(endIndex, totalPosts)} of {totalPosts}{" "}
+        {totalPosts === 1 ? "post" : "posts"}
+        {filterCategory && (
+          <>
+            {" "}
+            in {categoryLabels[filterCategory as keyof typeof categoryLabels]}{" "}
+            (
+            <a href="/news" class="text-accent hover:underline">
+              clear filter
+            </a>
+            )
+          </>
+        )}
+      </div>
+    )}
+  </Main>
+  <Footer />
+</Layout>

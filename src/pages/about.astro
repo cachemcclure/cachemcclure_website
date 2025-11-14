@@ -1,0 +1,143 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Socials from "@/components/Socials.astro";
+import { SITE } from "@/config";
+
+const pageTitle = "About";
+const pageDescription =
+  "Learn about Cache McClure, science fiction author exploring the intersections of technology, humanity, and the future.";
+---
+
+<Layout
+  title={`${pageTitle} | ${SITE.title}`}
+  description={pageDescription}
+  ogImage="cache-mcclure-og.jpg"
+  canonicalURL={new URL("about", SITE.website).href}
+>
+  <Header activeNav="about" />
+  <Breadcrumb />
+  <main id="main-content" class="max-w-app">
+    <section id="about" class="app-prose mb-28 prose-img:border-0">
+      <!-- Page Title -->
+      <h1 class="text-2xl tracking-wider sm:text-3xl">About Cache McClure</h1>
+
+      <!-- Author Photo -->
+      <div class="my-8 flex justify-center">
+        <img
+          src="/images/cache-mcclure-author.svg"
+          alt="Cache McClure"
+          class="h-48 w-48 rounded-full border-2 border-accent sm:h-64 sm:w-64"
+        />
+      </div>
+
+      <!-- Professional Bio -->
+      <section class="mb-8">
+        <h2 class="mb-4 text-xl font-semibold sm:text-2xl">Bio</h2>
+        <p class="mb-4">
+          Cache McClure is a science fiction author whose work explores the
+          complex relationships between technology, humanity, and the future we're
+          building. With a background in software engineering and a lifelong
+          passion for speculative fiction, Cache brings a unique technical
+          authenticity to stories that examine how innovation reshapes society,
+          identity, and what it means to be human.
+        </p>
+        <p class="mb-4">
+          Drawing inspiration from the masters of hard science fiction and
+          cyberpunk, Cache crafts narratives that balance rigorous extrapolation
+          with deeply human stories. The result is fiction that feels both
+          grounded in possibility and limitless in imagination.
+        </p>
+      </section>
+
+      <!-- Writing Journey -->
+      <section class="mb-8">
+        <h2 class="mb-4 text-xl font-semibold sm:text-2xl">The Writing Journey</h2>
+        <p class="mb-4">
+          Cache's journey into science fiction writing began with a simple
+          question: "What if?" As a software engineer, the daily work of building
+          systems and solving problems naturally led to wondering about the
+          long-term consequences of our technological choices. Science fiction
+          became the perfect medium to explore these questions—not just as
+          thought experiments, but as fully realized worlds where characters must
+          navigate the opportunities and dangers of innovation.
+        </p>
+        <p class="mb-4">
+          The <strong>Fracture Engines</strong> series represents years of
+          development, combining Cache's technical expertise with a deep love for
+          character-driven storytelling. Each book explores different facets of a
+          future where technology has fundamentally altered humanity's trajectory,
+          asking difficult questions about progress, power, and the price of
+          advancement.
+        </p>
+        <p class="mb-4">
+          When not writing, Cache can be found exploring the latest developments
+          in AI, quantum computing, and space exploration—always with an eye
+          toward the stories these technologies might tell in the years to come.
+        </p>
+      </section>
+
+      <!-- Genre Focus -->
+      <section class="mb-8">
+        <h2 class="mb-4 text-xl font-semibold sm:text-2xl">
+          Why Science Fiction?
+        </h2>
+        <p class="mb-4">
+          Science fiction is more than entertainment—it's a vital tool for
+          thinking about who we are and who we might become. In an era of rapid
+          technological change, SF provides a framework for exploring the
+          implications of innovation before they arrive on our doorstep. It asks
+          the questions that matter: How will AI change the nature of work and
+          identity? What happens when we can engineer our own biology? How do we
+          maintain our humanity in an increasingly digital world?
+        </p>
+        <p class="mb-4">
+          Cache's work sits at the intersection of <strong
+            >hard science fiction</strong
+          >, <strong>cyberpunk</strong>, and <strong
+            >philosophical speculation</strong
+          >, creating stories that are as intellectually engaging as they are
+          emotionally resonant. The goal is always to write fiction that
+          entertains while making readers think—and maybe see the present a
+          little differently.
+        </p>
+      </section>
+
+      <!-- Press Kit Section -->
+      <section class="mb-8">
+        <h2 class="mb-4 text-xl font-semibold sm:text-2xl">Press & Media</h2>
+        <p class="mb-4">
+          For press inquiries, interviews, or media requests, please download the
+          press kit below or contact directly via email.
+        </p>
+        <a
+          href="/press-kit.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-lg border border-accent bg-accent/10 px-6 py-3 font-medium text-accent transition hover:bg-accent hover:text-white"
+        >
+          View Press Kit (Print to PDF)
+        </a>
+      </section>
+
+      <!-- Contact & Social -->
+      <section class="mb-8">
+        <h2 class="mb-4 text-xl font-semibold sm:text-2xl">Connect</h2>
+        <p class="mb-4">
+          Stay updated on new releases, writing updates, and thoughts on science
+          fiction:
+        </p>
+        <Socials />
+        <p class="mt-6">
+          For professional inquiries: <a
+            href="mailto:cache@cachemcclure.com"
+            class="text-accent hover:underline">cache@cachemcclure.com</a
+          >
+        </p>
+      </section>
+    </section>
+  </main>
+  <Footer />
+</Layout>

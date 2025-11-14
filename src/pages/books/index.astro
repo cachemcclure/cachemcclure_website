@@ -1,0 +1,180 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/layouts/Main.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import BookCard from "@/components/BookCard.astro";
+import { SITE } from "@/config";
+
+// Query all books and filter out drafts
+const allBooks = await getCollection("books");
+const publishedBooks = allBooks
+  .filter(({ data }) => data.status !== "draft")
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+// Extract unique series for filtering
+const allSeries = [
+  ...new Set(
+    publishedBooks
+      .filter(book => book.data.series)
+      .map(book => book.data.series!)
+  ),
+].sort();
+
+// Get filter parameters from URL
+const url = new URL(Astro.request.url);
+const filterSeries = url.searchParams.get("series");
+const filterStatus = url.searchParams.get("status");
+
+// Apply filters
+let filteredBooks = publishedBooks;
+
+if (filterSeries) {
+  filteredBooks = filteredBooks.filter(
+    book => book.data.series === filterSeries
+  );
+}
+
+if (filterStatus) {
+  filteredBooks = filteredBooks.filter(
+    book => book.data.status === filterStatus
+  );
+}
+
+const pageTitle = "Books";
+const pageDesc = "Explore my science fiction novels and series.";
+---
+
+<Layout title={`${pageTitle} | ${SITE.title}`} description={pageDesc}>
+  <Header activeNav="books" />
+  <Main pageTitle={pageTitle} pageDesc={pageDesc}>
+    <!-- Filter Controls -->
+    {(allSeries.length > 0 || publishedBooks.length > 0) && (
+      <div class="mb-8 flex flex-wrap gap-4">
+        <!-- Series Filter -->
+        {allSeries.length > 0 && (
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-sm font-semibold text-foreground/80">Series:</span>
+            <a
+              href="/books"
+              class={`rounded-full border px-3 py-1 text-sm transition-colors ${
+                !filterSeries
+                  ? "border-accent bg-accent text-white"
+                  : "border-border bg-muted hover:border-accent"
+              }`}
+            >
+              All
+            </a>
+            {allSeries.map(series => (
+              <a
+                href={`/books?series=${encodeURIComponent(series)}`}
+                class={`rounded-full border px-3 py-1 text-sm transition-colors ${
+                  filterSeries === series
+                    ? "border-accent bg-accent text-white"
+                    : "border-border bg-muted hover:border-accent"
+                }`}
+              >
+                {series}
+              </a>
+            ))}
+          </div>
+        )}
+
+        <!-- Status Filter -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-sm font-semibold text-foreground/80">Status:</span>
+          <a
+            href={filterSeries ? `/books?series=${encodeURIComponent(filterSeries)}` : "/books"}
+            class={`rounded-full border px-3 py-1 text-sm transition-colors ${
+              !filterStatus
+                ? "border-accent bg-accent text-white"
+                : "border-border bg-muted hover:border-accent"
+            }`}
+          >
+            All
+          </a>
+          <a
+            href={`/books?status=published${filterSeries ? `&series=${encodeURIComponent(filterSeries)}` : ""}`}
+            class={`rounded-full border px-3 py-1 text-sm transition-colors ${
+              filterStatus === "published"
+                ? "border-accent bg-accent text-white"
+                : "border-border bg-muted hover:border-accent"
+            }`}
+          >
+            Published
+          </a>
+          <a
+            href={`/books?status=upcoming${filterSeries ? `&series=${encodeURIComponent(filterSeries)}` : ""}`}
+            class={`rounded-full border px-3 py-1 text-sm transition-colors ${
+              filterStatus === "upcoming"
+                ? "border-accent bg-accent text-white"
+                : "border-border bg-muted hover:border-accent"
+            }`}
+          >
+            Upcoming
+          </a>
+        </div>
+      </div>
+    )}
+
+    <!-- Books Grid -->
+    {filteredBooks.length === 0 ? (
+      <!-- Empty State -->
+      <div class="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-border bg-muted p-8 text-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="mb-4 h-16 w-16 text-foreground/30"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+          />
+        </svg>
+        <h2 class="mb-2 text-xl font-bold text-foreground">No books found</h2>
+        <p class="mb-4 text-foreground/70">
+          {filterSeries || filterStatus
+            ? "Try adjusting your filters to see more results."
+            : "Check back soon for upcoming releases!"}
+        </p>
+        {(filterSeries || filterStatus) && (
+          <a
+            href="/books"
+            class="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 font-semibold text-white transition-colors hover:bg-accent/90"
+          >
+            Clear Filters
+          </a>
+        )}
+      </div>
+    ) : (
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {filteredBooks.map(book => (
+          <BookCard variant="h2" {...book} />
+        ))}
+      </div>
+    )}
+
+    <!-- Results Count -->
+    {filteredBooks.length > 0 && (
+      <div class="mt-8 text-center text-sm text-foreground/60">
+        Showing {filteredBooks.length} {filteredBooks.length === 1 ? "book" : "books"}
+        {(filterSeries || filterStatus) && (
+          <>
+            {" "}
+            (
+            <a href="/books" class="text-accent hover:underline">
+              clear filters
+            </a>
+            )
+          </>
+        )}
+      </div>
+    )}
+  </Main>
+  <Footer />
+</Layout>

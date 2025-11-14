@@ -1,0 +1,248 @@
+---
+import { getCollection, render } from "astro:content";
+import NewsLayout from "@/layouts/NewsLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import BackButton from "@/components/BackButton.astro";
+import { SITE } from "@/config";
+import { slugifyStr } from "@/utils/slugify";
+import { calculateReadingTime } from "@/utils/readingTime";
+
+// Generate static paths for all news posts
+export async function getStaticPaths() {
+  const newsPosts = await getCollection("news");
+
+  // Filter out draft posts in production
+  const publishedPosts = newsPosts.filter(({ data }) => !data.draft);
+
+  // Sort by publish date for prev/next navigation
+  const sortedPosts = publishedPosts.sort(
+    (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+  );
+
+  return sortedPosts.map((post, index) => {
+    // Calculate prev/next posts (chronologically)
+    const prevPost = index > 0 ? sortedPosts[index - 1] : null;
+    const nextPost = index < sortedPosts.length - 1 ? sortedPosts[index + 1] : null;
+
+    return {
+      params: { slug: post.id },
+      props: { post, prevPost, nextPost },
+    };
+  });
+}
+
+const { post, prevPost, nextPost } = Astro.props;
+
+const {
+  title,
+  description,
+  publishDate,
+  category,
+  image,
+  ogImage: initOgImage,
+} = post.data;
+
+// Render the MDX content
+const { Content } = await render(post);
+
+// Calculate reading time from post body
+const readingTime = calculateReadingTime(post.body || "");
+
+// Determine OG image (use featured image if no specific ogImage provided)
+let ogImageUrl: string | undefined;
+
+if (typeof initOgImage === "string") {
+  ogImageUrl = initOgImage;
+} else if (initOgImage?.src) {
+  ogImageUrl = initOgImage.src;
+} else if (image) {
+  ogImageUrl = image;
+}
+
+const ogImage = ogImageUrl
+  ? new URL(ogImageUrl, Astro.url.origin).href
+  : undefined;
+
+// Category badge classes and labels
+const categoryBadgeClass = {
+  releases: "bg-purple-600 text-white",
+  events: "bg-blue-600 text-white",
+  updates: "bg-green-600 text-white",
+}[category];
+
+const categoryLabel = {
+  releases: "Release",
+  events: "Event",
+  updates: "Update",
+}[category];
+
+// Format publish date
+const formattedDate = publishDate.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+// Props for NewsLayout
+const layoutProps = {
+  title: `${title} | ${SITE.title}`,
+  description: description,
+  ogImage,
+  canonicalURL: new URL(Astro.url.pathname, Astro.url).href,
+  pubDatetime: publishDate,
+  scrollSmooth: true,
+  // News-specific props for structured data
+  category,
+  image,
+};
+---
+
+<NewsLayout {...layoutProps}>
+  <Header activeNav="news" />
+  <BackButton />
+
+  <main
+    id="main-content"
+    class="mx-auto w-full max-w-app px-4 pb-12"
+    data-pagefind-body
+  >
+    <!-- Article Header -->
+    <article>
+      <div class="mb-8">
+        <div class="mb-4 flex flex-wrap items-center gap-2">
+          <span class={`rounded px-3 py-1 text-sm font-semibold uppercase ${categoryBadgeClass}`}>
+            {categoryLabel}
+          </span>
+          <time
+            datetime={publishDate.toISOString()}
+            class="text-sm text-foreground/60"
+          >
+            {formattedDate}
+          </time>
+          <span class="text-sm text-foreground/60" aria-label={`Estimated reading time: ${readingTime.text}`}>
+            • {readingTime.text}
+          </span>
+        </div>
+
+        <h1
+          transition:name={slugifyStr(title)}
+          class="mb-4 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl"
+        >
+          {title}
+        </h1>
+
+        <p class="text-xl leading-relaxed text-foreground/80">
+          {description}
+        </p>
+      </div>
+
+      <!-- Featured Image (if available) -->
+      {
+        image && (
+          <div class="mb-8">
+            <img
+              src={image}
+              alt={title}
+              class="w-full rounded-lg shadow-lg"
+              loading="eager"
+            />
+          </div>
+        )
+      }
+
+      <!-- Article Content -->
+      <div
+        id="article-content"
+        class="app-prose mx-auto max-w-prose prose-headings:text-foreground prose-p:text-foreground/80 prose-strong:text-foreground prose-li:text-foreground/80 prose-a:text-accent hover:prose-a:underline"
+      >
+        <Content />
+      </div>
+
+      <!-- Article Footer with Back to News and Prev/Next Navigation -->
+      <div class="mt-12 border-t border-border pt-8">
+        <!-- Back to News Link -->
+        <div class="mb-8">
+          <a
+            href="/news"
+            class="inline-flex items-center gap-2 font-medium text-accent hover:underline"
+          >
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            Back to News
+          </a>
+        </div>
+
+        <!-- Prev/Next Post Navigation -->
+        {
+          (prevPost || nextPost) && (
+            <nav
+              class="flex flex-col gap-4 sm:flex-row sm:justify-between"
+              aria-label="Adjacent posts navigation"
+            >
+              {/* Previous (Newer) Post */}
+              {prevPost ? (
+                <a
+                  href={`/news/${prevPost.id}`}
+                  class="group flex flex-1 flex-col gap-2 rounded-lg border border-border bg-muted p-4 transition-colors hover:border-accent"
+                >
+                  <span class="text-sm font-medium text-foreground/60">
+                    ← Newer Post
+                  </span>
+                  <span class="font-semibold text-foreground group-hover:text-accent">
+                    {prevPost.data.title}
+                  </span>
+                </a>
+              ) : (
+                <div class="flex-1" />
+              )}
+
+              {/* Next (Older) Post */}
+              {nextPost ? (
+                <a
+                  href={`/news/${nextPost.id}`}
+                  class="group flex flex-1 flex-col gap-2 rounded-lg border border-border bg-muted p-4 text-right transition-colors hover:border-accent"
+                >
+                  <span class="text-sm font-medium text-foreground/60">
+                    Older Post →
+                  </span>
+                  <span class="font-semibold text-foreground group-hover:text-accent">
+                    {nextPost.data.title}
+                  </span>
+                </a>
+              ) : (
+                <div class="flex-1" />
+              )}
+            </nav>
+          )
+        }
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</NewsLayout>
+
+<style>
+  /* Ensure prose content is properly styled */
+  .app-prose {
+    max-width: 65ch;
+  }
+
+  /* Improve link styling within article content */
+  .app-prose a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>

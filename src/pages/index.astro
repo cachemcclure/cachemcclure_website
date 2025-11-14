@@ -1,8 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import BookCard from "@/components/BookCard.astro";
@@ -33,9 +31,8 @@ const publishedNews = allNews
 const recentNews = publishedNews.slice(0, 3);
 ---
 
-<Layout>
-  <Header />
-  <main id="main-content" data-layout="index">
+<BaseLayout mainId="main-content">
+  <div data-layout="index">
     <!-- Hero Section -->
     <section id="hero" class="pt-8 pb-12">
       <div class="flex items-baseline gap-3">
@@ -139,9 +136,8 @@ const recentNews = publishedNews.slice(0, 3);
         </p>
       </div>
     </section>
-  </main>
-  <Footer />
-</Layout>
+  </div>
+</BaseLayout>
 
 <script>
   document.addEventListener("astro:page-load", () => {
