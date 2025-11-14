@@ -40,6 +40,7 @@ const {
   publishDate,
   category,
   image,
+  imageAlt,
   ogImage: initOgImage,
 } = post.data;
 
@@ -143,7 +144,7 @@ const layoutProps = {
           <div class="mb-8">
             <img
               src={image}
-              alt={title}
+              alt={imageAlt || `Featured image for ${title}`}
               class="w-full rounded-lg shadow-lg"
               loading="eager"
             />

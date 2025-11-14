@@ -273,6 +273,15 @@ const news = defineCollection({
       image: z.string().optional(),
 
       /**
+       * Image alt text (optional, but required if image is provided)
+       * Descriptive alternative text for the featured image.
+       * Should describe what's in the image, not just repeat the title.
+       * Required for WCAG 2.1 AA accessibility compliance.
+       * @example "Book cover showing a neural network pattern in electric blue against a dark background"
+       */
+      imageAlt: z.string().optional(),
+
+      /**
        * Open Graph image (optional)
        * Custom image for social media sharing (og:image meta tag).
        * If not specified, falls back to `image` field.
