@@ -164,19 +164,20 @@ const homeHeader = extractHeader(homepage);
 const aboutHeader = extractHeader(aboutPage);
 const booksHeader = extractHeader(booksIndex);
 
+// Headers should be structurally similar
+assert(homeHeader.length > 0, 'Homepage has header content');
+assert(aboutHeader.length > 0, 'About page has header content');
+assert(booksHeader.length > 0, 'Books page has header content');
+
 // Check that headers contain the same elements (ignoring active states)
-function normalizeHeader(header) {
+// Normalizer function kept for potential future use
+function _normalizeHeader(header) {
   return header
     .replace(/aria-current="[^"]*"/g, '')
     .replace(/class="[^"]*active[^"]*"/g, 'class=""')
     .replace(/\s+/g, ' ')
     .trim();
 }
-
-// Headers should be structurally similar
-assert(homeHeader.length > 0, 'Homepage has header content');
-assert(aboutHeader.length > 0, 'About page has header content');
-assert(booksHeader.length > 0, 'Books page has header content');
 
 // All headers should have logo/site name
 assert(

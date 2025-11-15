@@ -27,7 +27,7 @@ console.log('🔍 Verifying Content Collections...\n');
 // Step 1: Build the site
 console.log('📦 Building site...');
 try {
-  const { stdout, stderr } = await execAsync('npm run build', {
+  const { stderr } = await execAsync('npm run build', {
     cwd: projectRoot,
   });
 

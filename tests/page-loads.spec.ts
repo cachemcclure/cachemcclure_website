@@ -13,8 +13,8 @@
  * "All pages load without errors"
  */
 
-import { test, expect, Page } from '@playwright/test';
-import { readFileSync, readdirSync, statSync } from 'fs';
+import { test, expect, type Page } from '@playwright/test';
+import { readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 // Define all static pages to test
@@ -153,9 +153,7 @@ test.describe('Page Load Tests - Static Pages', () => {
 test.describe('Page Load Tests - Dynamic Routes (News)', () => {
   const newsPostSlugs = getNewsPostSlugs();
 
-  if (newsPostSlugs.length === 0) {
-    test.skip('No news posts found to test');
-  }
+  test.skip(newsPostSlugs.length === 0, 'No news posts found to test');
 
   for (const slug of newsPostSlugs) {
     test(`News post /news/${slug} loads without errors`, async ({ page }) => {
@@ -198,9 +196,7 @@ test.describe('Page Load Tests - Dynamic Routes (News)', () => {
 test.describe('Page Load Tests - Dynamic Routes (Books)', () => {
   const bookSlugs = getBookSlugs();
 
-  if (bookSlugs.length === 0) {
-    test.skip('No books found to test');
-  }
+  test.skip(bookSlugs.length === 0, 'No books found to test');
 
   for (const slug of bookSlugs) {
     test(`Book page /books/${slug} loads without errors`, async ({ page }) => {
@@ -253,7 +249,6 @@ test.describe('Page Load Tests - Image Loading', () => {
 
     // Check each image
     for (const img of images) {
-      const src = await img.getAttribute('src');
       const alt = await img.getAttribute('alt');
 
       // Verify image has alt text (accessibility)

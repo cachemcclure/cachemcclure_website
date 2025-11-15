@@ -82,8 +82,9 @@ function hasElement(html, element) {
 
 /**
  * Check if HTML contains time elements with datetime attribute
+ * Currently unused but kept for potential future use
  */
-function hasTimeWithDatetime(html) {
+function _hasTimeWithDatetime(html) {
   const timeRegex = /<time[^>]*datetime=["'][^"']*["'][^>]*>/i;
   return timeRegex.test(html);
 }
@@ -291,10 +292,8 @@ const requiredElements = [
   { name: 'nav', count: stats.pagesWithNav, threshold: htmlFiles.length },
 ];
 
-let allCompliant = true;
 requiredElements.forEach(element => {
   const compliant = element.count === element.threshold;
-  if (!compliant) allCompliant = false;
 
   assert(
     compliant,

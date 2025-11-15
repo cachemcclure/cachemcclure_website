@@ -80,7 +80,7 @@ function parseThemeColors(themePath) {
   // Dark mode: html[data-theme="dark"] { ... }
   const darkModeMatch = content.match(/html\[data-theme="dark"\]\s*{([^}]+)}/s);
 
-  function extractColors(cssBlock, mode) {
+  function extractColors(cssBlock, _mode) {
     if (!cssBlock) return {};
     const colorVars = {};
     const matches = cssBlock.matchAll(/--([^:]+):\s*([^;/]+)/g);

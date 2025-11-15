@@ -89,8 +89,9 @@ function extractImages(html) {
 
 /**
  * Check if an image is decorative (should have empty alt="")
+ * Currently unused but kept for future enhancement
  */
-function isLikelyDecorative(imgTag) {
+function _isLikelyDecorative(imgTag) {
   // SVG icons with aria-hidden should have empty alt
   // Background images or decorative elements
   return imgTag.includes('aria-hidden="true"');

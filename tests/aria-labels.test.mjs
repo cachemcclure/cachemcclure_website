@@ -177,7 +177,7 @@ function logError(text) {
   console.log(`${colors.red}✗${colors.reset} ${text}`);
 }
 
-function logWarning(text) {
+function _logWarning(text) {
   console.log(`${colors.yellow}⚠${colors.reset} ${text}`);
 }
 

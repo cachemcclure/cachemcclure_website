@@ -16,8 +16,9 @@ import { test, expect } from '@playwright/test';
 
 /**
  * Helper function to check if an element has visible focus indicator
+ * Currently unused but kept for future enhancement
  */
-async function hasFocusIndicator(page: any, selector: string): Promise<boolean> {
+async function _hasFocusIndicator(page: any, selector: string): Promise<boolean> {
   return await page.locator(selector).evaluate((el: HTMLElement) => {
     const styles = window.getComputedStyle(el);
 
@@ -124,7 +125,8 @@ test.describe('Keyboard Navigation - Homepage', () => {
         const el = document.activeElement;
         return {
           tagName: el?.tagName.toLowerCase(),
-          id: (el as HTMLElement)?.id
+          id: (el as HTMLElement)?.id,
+          text: el?.textContent?.trim().substring(0, 30)
         };
       });
 
@@ -552,17 +554,6 @@ test.describe('Keyboard Navigation - Focus Management', () => {
       // Tab through first 10 elements
       for (let i = 0; i < 10; i++) {
         await page.keyboard.press('Tab');
-
-        // Get focused element
-        const hasFocus = await page.evaluate(() => {
-          const el = document.activeElement;
-          if (!el || el.tagName === 'BODY') return false;
-
-          const styles = window.getComputedStyle(el);
-          return styles.outline !== 'none' ||
-                 styles.boxShadow !== 'none' ||
-                 styles.border !== 'none';
-        });
 
         // Each interactive element should have some focus indication
         // Note: This is a basic check. Visual regression would be better.

@@ -9,7 +9,6 @@
  */
 
 import { chromium } from "playwright";
-import { assert } from "console";
 
 const BASE_URL = "http://localhost:4321";
 

@@ -17,7 +17,6 @@
 import { JSDOM } from 'jsdom';
 import { glob } from 'glob';
 import fs from 'fs';
-import path from 'path';
 
 // Color codes for terminal output
 const colors = {
@@ -37,7 +36,7 @@ let warnings = 0;
 /**
  * Extract heading hierarchy from HTML
  */
-function extractHeadingHierarchy(html, filePath) {
+function extractHeadingHierarchy(html, _filePath) {
   const dom = new JSDOM(html);
   const document = dom.window.document;
 
@@ -144,8 +143,9 @@ function checkEmptyHeadings(headings, filePath) {
 
 /**
  * Display heading hierarchy for a page (for debugging)
+ * Currently unused but kept for debugging purposes
  */
-function displayHeadingStructure(headings) {
+function _displayHeadingStructure(headings) {
   console.log(`  ${colors.cyan}Heading Structure:${colors.reset}`);
   headings.forEach(heading => {
     const indent = '  '.repeat(heading.level);
