@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="600" height="900">
+  <title>Fracture Engine - Ice Cathedral</title>
+
+  <defs>
+    <!-- Deep blue-black background -->
+    <radialGradient id="ice-bg" cx="50%" cy="45%">
+      <stop offset="0%" style="stop-color:#0F1820;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000508;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Translucent cool fills -->
+    <radialGradient id="translucent-platinum" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#E8F0F8;stop-opacity:0.12" />
+      <stop offset="100%" style="stop-color:#C8D8E8;stop-opacity:0.04" />
+    </radialGradient>
+
+    <radialGradient id="translucent-ice-blue" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#C8E0F8;stop-opacity:0.13" />
+      <stop offset="100%" style="stop-color:#A8C8E0;stop-opacity:0.04" />
+    </radialGradient>
+
+    <radialGradient id="translucent-pale-gold" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#E8E0C8;stop-opacity:0.11" />
+      <stop offset="100%" style="stop-color:#C8C0A8;stop-opacity:0.03" />
+    </radialGradient>
+
+    <radialGradient id="translucent-silver-ice" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#D8E0E8;stop-opacity:0.14" />
+      <stop offset="100%" style="stop-color:#B8C0C8;stop-opacity:0.04" />
+    </radialGradient>
+
+    <!-- Ring stroke gradients -->
+    <linearGradient id="stroke-platinum" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#E8F0F8;stop-opacity:0.5" />
+      <stop offset="50%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8F0F8;stop-opacity:0.5" />
+    </linearGradient>
+
+    <linearGradient id="stroke-ice-blue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#C8E0F8;stop-opacity:0.5" />
+      <stop offset="50%" style="stop-color:#E0F0FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C8E0F8;stop-opacity:0.5" />
+    </linearGradient>
+
+    <linearGradient id="stroke-pale-gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#E8E0C8;stop-opacity:0.5" />
+      <stop offset="50%" style="stop-color:#F0E8D0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8E0C8;stop-opacity:0.5" />
+    </linearGradient>
+
+    <!-- Cold fracture gradient -->
+    <radialGradient id="fracture-ice" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#6080FF;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#304080;stop-opacity:0" />
+    </radialGradient>
+
+    <!-- Starfield pattern -->
+    <pattern id="starfield" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="15" r="0.5" fill="#FFFFFF" opacity="0.3"/>
+      <circle cx="60" cy="25" r="0.4" fill="#C8E0F8" opacity="0.4"/>
+      <circle cx="30" cy="70" r="0.3" fill="#FFFFFF" opacity="0.2"/>
+      <circle cx="80" cy="85" r="0.6" fill="#E8F0F8" opacity="0.3"/>
+      <circle cx="45" cy="40" r="0.4" fill="#C8D8E8" opacity="0.25"/>
+      <circle cx="90" cy="10" r="0.3" fill="#FFFFFF" opacity="0.35"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="900" fill="url(#ice-bg)"/>
+  <rect width="600" height="900" fill="url(#starfield)" opacity="0.4"/>
+
+  <!-- 12 overlapping translucent rings - slightly offset -->
+  <g id="translucent-rings-ice">
+
+    <!-- Ring 1 (platinum) -->
+    <circle cx="318" cy="432" r="240"
+            fill="url(#translucent-platinum)"
+            stroke="url(#stroke-platinum)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+
+    <!-- Ring 2 (ice blue) -->
+    <circle cx="282" cy="468" r="220"
+            fill="url(#translucent-ice-blue)"
+            stroke="url(#stroke-ice-blue)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+
+    <!-- Ring 3 (pale gold) -->
+    <circle cx="308" cy="446" r="200"
+            fill="url(#translucent-pale-gold)"
+            stroke="url(#stroke-pale-gold)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+
+    <!-- Ring 4 (platinum) -->
+    <circle cx="292" cy="458" r="180"
+            fill="url(#translucent-platinum)"
+            stroke="url(#stroke-platinum)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+
+    <!-- Ring 5 (ice blue) -->
+    <circle cx="304" cy="442" r="160"
+            fill="url(#translucent-ice-blue)"
+            stroke="url(#stroke-ice-blue)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+
+    <!-- Ring 6 (silver ice) -->
+    <circle cx="296" cy="454" r="140"
+            fill="url(#translucent-silver-ice)"
+            stroke="url(#stroke-platinum)"
+            stroke-width="1.5"
+            opacity="0.95"/>
+
+    <!-- Ring 7 (platinum) -->
+    <circle cx="302" cy="448" r="120"
+            fill="url(#translucent-platinum)"
+            stroke="url(#stroke-platinum)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+
+    <!-- Ring 8 (ice blue) -->
+    <circle cx="298" cy="452" r="100"
+            fill="url(#translucent-ice-blue)"
+            stroke="url(#stroke-ice-blue)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+
+    <!-- Ring 9 (pale gold) -->
+    <circle cx="301" cy="449" r="80"
+            fill="url(#translucent-pale-gold)"
+            stroke="url(#stroke-pale-gold)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+
+    <!-- Ring 10 (platinum) -->
+    <circle cx="299" cy="451" r="60"
+            fill="url(#translucent-platinum)"
+            stroke="url(#stroke-platinum)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+
+    <!-- Ring 11 (ice blue) -->
+    <circle cx="300" cy="450" r="40"
+            fill="url(#translucent-ice-blue)"
+            stroke="url(#stroke-ice-blue)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+
+    <!-- Ring 12 (silver ice) -->
+    <circle cx="300" cy="450" r="20"
+            fill="url(#translucent-silver-ice)"
+            stroke="url(#stroke-platinum)"
+            stroke-width="1.5"
+            opacity="0.9"/>
+  </g>
+
+  <!-- Central void -->
+  <circle cx="300" cy="450" r="15" fill="#000000" opacity="0.9"/>
+
+  <!-- 17 fracture lines radiating through all layers -->
+  <g id="fractures-ice" stroke="#4060A0" stroke-width="1.5" opacity="0.5">
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(0 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(21.176 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(42.353 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(63.529 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(84.706 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(105.882 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(127.059 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(148.235 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(169.412 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(190.588 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(211.765 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(232.941 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(254.118 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(275.294 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(296.471 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(317.647 300 450)"/>
+    <line x1="300" y1="450" x2="300" y2="150" transform="rotate(338.824 300 450)"/>
+  </g>
+
+  <!-- Subtle cold glow from center -->
+  <circle cx="300" cy="450" r="100" fill="url(#fracture-ice)" opacity="0.25"/>
+
+  <!-- Typography -->
+  <g id="typography-ice">
+    <text x="300" y="120"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="62"
+          font-weight="300"
+          letter-spacing="16"
+          fill="#E8F0F8"
+          text-anchor="middle"
+          opacity="0.95">FRACTURE</text>
+
+    <line x1="140" y1="135" x2="460" y2="135" stroke="#5A6A7A" stroke-width="0.5" opacity="0.5"/>
+
+    <text x="300" y="790"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="62"
+          font-weight="300"
+          letter-spacing="16"
+          fill="#E8F0F8"
+          text-anchor="middle"
+          opacity="0.95">ENGINE</text>
+
+    <line x1="140" y1="760" x2="460" y2="760" stroke="#5A6A7A" stroke-width="0.5" opacity="0.5"/>
+
+    <text x="300" y="840"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="24"
+          font-weight="300"
+          letter-spacing="6"
+          fill="#C8D8E8"
+          text-anchor="middle"
+          opacity="0.9">CACHE McCLURE</text>
+
+    <text x="300" y="870"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="11"
+          font-weight="300"
+          letter-spacing="2"
+          fill="#A8B8C8"
+          text-anchor="middle"
+          opacity="0.7">BOOK ONE OF THE FRACTURE ENGINES SERIES</text>
+  </g>
+
+  <!-- Corner details -->
+  <g stroke="#3A4A5A" stroke-width="0.5" fill="none" opacity="0.5">
+    <line x1="30" y1="30" x2="60" y2="30"/>
+    <line x1="30" y1="30" x2="30" y2="60"/>
+    <line x1="570" y1="30" x2="540" y2="30"/>
+    <line x1="570" y1="30" x2="570" y2="60"/>
+    <line x1="30" y1="870" x2="60" y2="870"/>
+    <line x1="30" y1="870" x2="30" y2="840"/>
+    <line x1="570" y1="870" x2="540" y2="870"/>
+    <line x1="570" y1="870" x2="570" y2="840"/>
+  </g>
+
+  <!-- Hidden mathematical detail -->
+  <text x="300" y="460"
+        font-family="'Courier New', monospace"
+        font-size="10"
+        fill="#5A6A7A"
+        text-anchor="middle"
+        opacity="0.4">base₁₇</text>
+
+  <!-- Additional starfield elements for depth -->
+  <g fill="#FFFFFF" opacity="0.2">
+    <circle cx="120" cy="180" r="0.5"/>
+    <circle cx="480" cy="220" r="0.4"/>
+    <circle cx="80" cy="650" r="0.6"/>
+    <circle cx="520" cy="720" r="0.5"/>
+  </g>
+</svg>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="600" height="900">
+  <title>Fracture Engine - Sage Stone</title>
+
+  <defs>
+    <!-- Warm grey-green background -->
+    <radialGradient id="sage-bg" cx="50%" cy="45%">
+      <stop offset="0%" style="stop-color:#2A2C28;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1A1C18;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Stone texture pattern -->
+    <pattern id="stone-texture" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <rect width="30" height="30" fill="#25271F"/>
+      <circle cx="8" cy="12" r="0.4" fill="#2F312A" opacity="0.4"/>
+      <circle cx="22" cy="7" r="0.5" fill="#353732" opacity="0.3"/>
+      <circle cx="15" cy="24" r="0.3" fill="#2F312A" opacity="0.35"/>
+    </pattern>
+
+    <!-- Bronze gradient -->
+    <radialGradient id="bronze-sage" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#B89070;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#987355;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#785A40;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Brass gradient -->
+    <radialGradient id="brass-sage" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#C8B080;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#A89070;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#887060;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Warm stone gradient -->
+    <radialGradient id="warm-stone" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#B8B0A8;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#989088;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#787068;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Slate grey-green -->
+    <radialGradient id="slate-sage" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#808878;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#606860;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#484C48;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Earthy fracture glow -->
+    <radialGradient id="fracture-earth" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#8B5A3C;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#5A3A28;stop-opacity:0" />
+    </radialGradient>
+
+    <!-- Geometric pattern -->
+    <pattern id="geo-pattern-sage" x="0" y="0" width="17" height="17" patternUnits="userSpaceOnUse">
+      <path d="M0,0 L17,0 L8.5,17 Z" fill="none" stroke="currentColor" stroke-width="0.3" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="900" fill="url(#sage-bg)"/>
+  <rect width="600" height="900" fill="url(#stone-texture)" opacity="0.6"/>
+
+  <!-- Main ring system (12 layers) -->
+  <g id="ring-system-sage" transform="translate(300, 450)">
+
+    <!-- Outer rings (Brass) -->
+    <circle cx="2" cy="-3" r="240" fill="none" stroke="url(#brass-sage)" stroke-width="3.5" opacity="0.95"/>
+    <circle cx="0" cy="2" r="228" fill="none" stroke="url(#brass-sage)" stroke-width="3" opacity="0.92"/>
+    <circle cx="-3" cy="0" r="216" fill="none" stroke="url(#brass-sage)" stroke-width="3" opacity="0.9"/>
+
+    <!-- Middle rings (Warm Stone/Slate) -->
+    <circle cx="3" cy="2" r="204" fill="none" stroke="url(#warm-stone)" stroke-width="3" opacity="0.93"/>
+    <circle cx="-2" cy="-2" r="192" fill="none" stroke="url(#slate-sage)" stroke-width="2.5" opacity="0.9"/>
+    <circle cx="0" cy="3" r="180" fill="none" stroke="url(#warm-stone)" stroke-width="2.5" opacity="0.88"/>
+    <circle cx="2" cy="-1" r="168" fill="none" stroke="url(#brass-sage)" stroke-width="3" opacity="0.9"/>
+    <circle cx="-1" cy="2" r="156" fill="none" stroke="url(#slate-sage)" stroke-width="2.5" opacity="0.87"/>
+    <circle cx="1" cy="-2" r="144" fill="none" stroke="url(#brass-sage)" stroke-width="2.5" opacity="0.85"/>
+
+    <!-- Inner rings (Bronze) -->
+    <circle cx="-2" cy="1" r="132" fill="none" stroke="url(#bronze-sage)" stroke-width="3.5" opacity="0.95"/>
+    <circle cx="1" cy="-1" r="120" fill="none" stroke="url(#bronze-sage)" stroke-width="3" opacity="0.93"/>
+    <circle cx="0" cy="0" r="108" fill="none" stroke="url(#bronze-sage)" stroke-width="3.5" opacity="0.95"/>
+
+    <!-- Geometric patterns within rings -->
+    <g opacity="0.12">
+      <circle cx="0" cy="0" r="180" fill="none" stroke="url(#geo-pattern-sage)" stroke-width="12"/>
+      <circle cx="0" cy="0" r="144" fill="none" stroke="url(#geo-pattern-sage)" stroke-width="10"/>
+    </g>
+
+    <!-- Central void (warm grey-green) -->
+    <circle cx="0" cy="0" r="95" fill="#1A1C18" opacity="0.95"/>
+    <circle cx="0" cy="0" r="85" fill="#25271F" opacity="0.8"/>
+
+    <!-- Fracture lines (17 of them - earthy tones) -->
+    <g id="fractures-sage" stroke="#5A3A28" stroke-width="2" opacity="0.7">
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(0)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(21.176)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(42.353)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(63.529)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(84.706)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(105.882)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(127.059)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(148.235)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(169.412)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(190.588)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(211.765)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(232.941)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(254.118)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(275.294)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(296.471)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(317.647)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" transform="rotate(338.824)"/>
+    </g>
+
+    <!-- Fracture glow effects (earthy) -->
+    <g id="fracture-glows-sage" opacity="0.5">
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(0)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(21.176)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(42.353)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(63.529)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(84.706)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(105.882)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(127.059)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(148.235)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(169.412)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(190.588)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(211.765)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(232.941)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(254.118)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(275.294)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(296.471)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(317.647)"/>
+      <line x1="0" y1="0" x2="0" y2="-260" stroke="#8B5A3C" stroke-width="3" transform="rotate(338.824)"/>
+    </g>
+
+    <!-- Mathematical notation around core -->
+    <g font-family="'Courier New', monospace" font-size="9" fill="#A89070" opacity="0.5" text-anchor="middle">
+      <text x="0" y="-75" transform="rotate(0)">base₁₇</text>
+      <text x="65" y="-40" transform="rotate(45)">Φ</text>
+      <text x="75" y="10" transform="rotate(90)">∞</text>
+      <text x="50" y="60" transform="rotate(135)">47</text>
+      <text x="0" y="80" transform="rotate(180)">×12</text>
+      <text x="-65" y="50" transform="rotate(225)">Δt</text>
+      <text x="-75" y="-10" transform="rotate(270)">∫</text>
+      <text x="-50" y="-60" transform="rotate(315)">∑</text>
+    </g>
+  </g>
+
+  <!-- Typography -->
+  <g id="typography-sage">
+    <text x="300" y="130"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="62"
+          font-weight="700"
+          letter-spacing="12"
+          fill="url(#brass-sage)"
+          text-anchor="middle"
+          opacity="1">FRACTURE</text>
+
+    <line x1="120" y1="145" x2="480" y2="145" stroke="url(#warm-stone)" stroke-width="1.5" opacity="0.6"/>
+
+    <text x="300" y="790"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="62"
+          font-weight="700"
+          letter-spacing="12"
+          fill="url(#brass-sage)"
+          text-anchor="middle"
+          opacity="1">ENGINE</text>
+
+    <line x1="120" y1="765" x2="480" y2="765" stroke="url(#warm-stone)" stroke-width="1.5" opacity="0.6"/>
+
+    <text x="300" y="850"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="24"
+          font-weight="300"
+          letter-spacing="6"
+          fill="#B8B0A8"
+          text-anchor="middle"
+          opacity="0.9">CACHE McCLURE</text>
+
+    <text x="300" y="875"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="11"
+          font-weight="300"
+          letter-spacing="2"
+          fill="#989088"
+          text-anchor="middle"
+          opacity="0.75">BOOK ONE OF THE FRACTURE ENGINES SERIES</text>
+  </g>
+
+  <!-- Corner details (earthy metals) -->
+  <g opacity="0.25" stroke="#A89070" stroke-width="0.5" fill="none">
+    <line x1="20" y1="20" x2="50" y2="20"/>
+    <line x1="20" y1="20" x2="20" y2="50"/>
+    <line x1="580" y1="20" x2="550" y2="20"/>
+    <line x1="580" y1="20" x2="580" y2="50"/>
+    <line x1="20" y1="880" x2="50" y2="880"/>
+    <line x1="20" y1="880" x2="20" y2="850"/>
+    <line x1="580" y1="880" x2="550" y2="880"/>
+    <line x1="580" y1="880" x2="580" y2="850"/>
+  </g>
+
+  <!-- Hidden "17" -->
+  <text x="300" y="455"
+        font-family="'Courier New', monospace"
+        font-size="8"
+        fill="#A89070"
+        text-anchor="middle"
+        opacity="0.2">17</text>
+</svg>

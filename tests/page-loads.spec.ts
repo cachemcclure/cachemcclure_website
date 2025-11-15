@@ -23,8 +23,6 @@ const STATIC_PAGES = [
   { path: '/about', name: 'About Page' },
   { path: '/books', name: 'Books Index' },
   { path: '/news', name: 'News Index' },
-  { path: '/posts', name: 'Posts Index' },
-  { path: '/tags', name: 'Tags Index' },
   { path: '/archives', name: 'Archives Page' },
   { path: '/search', name: 'Search Page' },
 ];

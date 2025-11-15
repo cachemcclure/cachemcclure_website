@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="600" height="900">
+  <title>Fracture Engine - Void Negative Space</title>
+
+  <defs>
+    <!-- Pure white to off-white gradient -->
+    <radialGradient id="white-bg" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F5F5F5;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Void gradient (deep black) -->
+    <radialGradient id="void-gradient" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#000000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1A1A1A;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Red accent -->
+    <linearGradient id="red-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF0000;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#FF0000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF0000;stop-opacity:0.3" />
+    </linearGradient>
+  </defs>
+
+  <!-- White background -->
+  <rect width="600" height="900" fill="url(#white-bg)"/>
+
+  <!-- Central void (negative space circle) -->
+  <circle cx="300" cy="450" r="180" fill="url(#void-gradient)"/>
+
+  <!-- 17 thin fracture lines radiating from void into white space -->
+  <g id="fracture-rays" stroke="#000000" stroke-width="1" opacity="0.9">
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(0 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(21.176 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(42.353 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(63.529 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(84.706 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(105.882 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(127.059 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(148.235 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(169.412 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(190.588 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(211.765 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(232.941 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(254.118 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(275.294 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(296.471 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(317.647 300 450)"/>
+    <line x1="300" y1="270" x2="300" y2="50" transform="rotate(338.824 300 450)"/>
+  </g>
+
+  <!-- Single red accent line (the critical fracture) -->
+  <line x1="300" y1="630" x2="300" y2="850"
+        stroke="url(#red-accent)"
+        stroke-width="2"
+        opacity="0.9"/>
+
+  <!-- Typography - ultra minimal -->
+  <g id="typography-void">
+    <!-- FRACTURE above void -->
+    <text x="300" y="180"
+          font-family="'Helvetica Neue', 'Arial', sans-serif"
+          font-size="52"
+          font-weight="300"
+          letter-spacing="18"
+          fill="#000000"
+          text-anchor="middle"
+          opacity="1">FRACTURE</text>
+
+    <!-- ENGINE below void -->
+    <text x="300" y="760"
+          font-family="'Helvetica Neue', 'Arial', sans-serif"
+          font-size="52"
+          font-weight="300"
+          letter-spacing="18"
+          fill="#000000"
+          text-anchor="middle"
+          opacity="1">ENGINE</text>
+
+    <!-- Author - very small, subtle -->
+    <text x="300" y="860"
+          font-family="'Helvetica Neue', 'Arial', sans-serif"
+          font-size="14"
+          font-weight="300"
+          letter-spacing="4"
+          fill="#4A4A4A"
+          text-anchor="middle"
+          opacity="0.8">CACHE McCLURE</text>
+  </g>
+
+  <!-- Minimal corner marks -->
+  <g stroke="#E0E0E0" stroke-width="0.5" fill="none" opacity="0.5">
+    <line x1="30" y1="30" x2="60" y2="30"/>
+    <line x1="30" y1="30" x2="30" y2="60"/>
+
+    <line x1="570" y1="30" x2="540" y2="30"/>
+    <line x1="570" y1="30" x2="570" y2="60"/>
+
+    <line x1="30" y1="870" x2="60" y2="870"/>
+    <line x1="30" y1="870" x2="30" y2="840"/>
+
+    <line x1="570" y1="870" x2="540" y2="870"/>
+    <line x1="570" y1="870" x2="570" y2="840"/>
+  </g>
+
+  <!-- Hidden detail in the void -->
+  <text x="300" y="460"
+        font-family="'Courier New', monospace"
+        font-size="120"
+        font-weight="700"
+        fill="#0A0A0A"
+        text-anchor="middle"
+        opacity="0.5">17</text>
+</svg>

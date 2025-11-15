@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="600" height="900">
+  <title>Fracture Engine - Minimal Midnight</title>
+
+  <defs>
+    <!-- Deep midnight blue -->
+    <radialGradient id="midnight-bg" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#0A1428;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#020508;stop-opacity:1" />
+    </radialGradient>
+
+    <!-- Platinum gradient for ring -->
+    <linearGradient id="platinum-ring" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#D8E8F8;stop-opacity:0.6" />
+      <stop offset="50%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D8E8F8;stop-opacity:0.6" />
+    </linearGradient>
+
+    <!-- Subtle glow -->
+    <filter id="soft-glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="900" fill="url(#midnight-bg)"/>
+
+  <!-- Single perfect circle -->
+  <circle cx="300" cy="450" r="200"
+          fill="none"
+          stroke="url(#platinum-ring)"
+          stroke-width="1.5"
+          opacity="0.95"
+          filter="url(#soft-glow)"/>
+
+  <!-- 17 subtle markers on the circle -->
+  <g fill="#C8D8E8" opacity="0.5">
+    <circle cx="300" cy="250" r="2" transform="rotate(0 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(21.176 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(42.353 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(63.529 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(84.706 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(105.882 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(127.059 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(148.235 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(169.412 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(190.588 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(211.765 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(232.941 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(254.118 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(275.294 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(296.471 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(317.647 300 450)"/>
+    <circle cx="300" cy="250" r="2" transform="rotate(338.824 300 450)"/>
+  </g>
+
+  <!-- Central point -->
+  <circle cx="300" cy="450" r="3" fill="#FFFFFF" opacity="0.8"/>
+
+  <!-- Typography -->
+  <g id="typography-minimal-midnight">
+    <text x="300" y="180"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="48"
+          font-weight="300"
+          letter-spacing="20"
+          fill="#E8F0F8"
+          text-anchor="middle"
+          opacity="0.95">FRACTURE</text>
+
+    <text x="300" y="760"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="48"
+          font-weight="300"
+          letter-spacing="20"
+          fill="#E8F0F8"
+          text-anchor="middle"
+          opacity="0.95">ENGINE</text>
+
+    <text x="300" y="850"
+          font-family="'Futura', 'Helvetica Neue', 'Arial', sans-serif"
+          font-size="16"
+          font-weight="300"
+          letter-spacing="4"
+          fill="#B8C8D8"
+          text-anchor="middle"
+          opacity="0.8">CACHE McCLURE</text>
+  </g>
+
+  <!-- Minimal corner marks -->
+  <g stroke="#2A3A4A" stroke-width="0.5" fill="none" opacity="0.4">
+    <line x1="40" y1="40" x2="60" y2="40"/>
+    <line x1="40" y1="40" x2="40" y2="60"/>
+
+    <line x1="560" y1="40" x2="540" y2="40"/>
+    <line x1="560" y1="40" x2="560" y2="60"/>
+
+    <line x1="40" y1="860" x2="60" y2="860"/>
+    <line x1="40" y1="860" x2="40" y2="840"/>
+
+    <line x1="560" y1="860" x2="540" y2="860"/>
+    <line x1="560" y1="860" x2="560" y2="840"/>
+  </g>
+
+  <!-- Hidden notation -->
+  <text x="300" y="455"
+        font-family="'Courier New', monospace"
+        font-size="8"
+        fill="#3A4A5A"
+        text-anchor="middle"
+        opacity="0.3">17</text>
+</svg>
