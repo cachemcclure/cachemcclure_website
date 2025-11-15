@@ -14,13 +14,13 @@ html[data-theme="light"] {
   /* Light mode - Ash beige with copper accents */
   --background: #e0ddd7; /* Ash beige - cooler tan with gray undertones */
   --foreground: #2d2a26; /* Warm dark charcoal */
-  --accent: #d97706; /* Warm amber/copper */
-  --accent-glow: #d9770640;
-  --accent-secondary: #ea580c; /* Burnt orange */
+  --accent: #92400e; /* Deep amber/copper - WCAG AA compliant (5.78:1) */
+  --accent-glow: #92400e40;
+  --accent-secondary: #9a3412; /* Deep burnt orange - WCAG AA compliant (5.69:1) */
   --muted: #d1cec8;
-  --border: #bbb8b2;
+  --border: #78736d; /* Darker border - WCAG AA compliant for UI (3.74:1) */
   --card-bg: #ebe8e2;
-  --subtle: #78716c;
+  --subtle: #57524d; /* Darker subtle text - WCAG AA compliant (6.36:1) */
 }
 
 html[data-theme="dark"] {
@@ -31,7 +31,7 @@ html[data-theme="dark"] {
   --accent-glow: #c4a57440;
   --accent-secondary: #d4b886; /* Lighter muted gold */
   --muted: #3d3b38;
-  --border: #4a4845;
+  --border: #8a857f; /* Lighter border - WCAG AA compliant for UI (3.52:1) */
   --card-bg: #38362f;
   --subtle: #a8a29e;
 }

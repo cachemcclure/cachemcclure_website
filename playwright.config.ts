@@ -1,11 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Playwright configuration for responsive design testing
+ * Playwright configuration for accessibility and responsive design testing
  * Tests all pages at mobile, tablet, and desktop breakpoints
+ * Includes keyboard navigation and accessibility tests
  */
 export default defineConfig({
-  testDir: './tests/responsive',
+  testDir: './tests',
+  testMatch: /.*\.(spec|test)\.(js|ts|mjs)/,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

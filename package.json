@@ -19,7 +19,9 @@
     "lint": "eslint .",
     "test": "playwright test",
     "test:responsive": "playwright test tests/responsive/",
+    "test:keyboard": "playwright test tests/keyboard-navigation.spec.ts",
     "test:heading": "node tests/heading-hierarchy.test.mjs",
+    "test:contrast": "node tests/color-contrast.test.mjs",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report",
     "test:debug": "playwright test --debug"
