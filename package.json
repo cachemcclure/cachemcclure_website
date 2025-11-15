@@ -22,6 +22,7 @@
     "test:keyboard": "playwright test tests/keyboard-navigation.spec.ts",
     "test:heading": "node tests/heading-hierarchy.test.mjs",
     "test:contrast": "node tests/color-contrast.test.mjs",
+    "test:loads": "playwright test tests/page-loads.spec.ts",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report",
     "test:debug": "playwright test --debug"
