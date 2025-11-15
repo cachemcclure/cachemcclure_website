@@ -104,20 +104,25 @@ const isActive = (path: string) => {
               </li>
             )
           }
-          <li class="col-span-1 flex items-center justify-center">
-            <LinkButton
-              href="/search"
-              class:list={[
-                "focus-outline flex p-3 sm:p-1",
-                { "[&>svg]:stroke-accent": isActive("/search") },
-              ]}
-              ariaLabel="search"
-              title="Search"
-            >
-              <IconSearch />
-              <span class="sr-only">Search</span>
-            </LinkButton>
-          </li>
+          {
+            /* Search not needed until 50+ posts (per CLAUDE.md) */
+            false && (
+              <li class="col-span-1 flex items-center justify-center">
+                <LinkButton
+                  href="/search"
+                  class:list={[
+                    "focus-outline flex p-3 sm:p-1",
+                    { "[&>svg]:stroke-accent": isActive("/search") },
+                  ]}
+                  ariaLabel="search"
+                  title="Search"
+                >
+                  <IconSearch />
+                  <span class="sr-only">Search</span>
+                </LinkButton>
+              </li>
+            )
+          }
           {
             SITE.lightAndDarkMode && (
               <li class="col-span-1 flex items-center justify-center">

@@ -1,0 +1,122 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Skip to content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic [ref=e5]:
+      - link "Cache McClure" [ref=e6] [cursor=pointer]:
+        - /url: /
+      - navigation "Main navigation" [ref=e7]:
+        - button "Open Menu" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+    - separator [ref=e12]
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - heading "Cache McClure" [level=1] [ref=e17]
+          - link "rss feed" [ref=e18] [cursor=pointer]:
+            - /url: /rss.xml
+            - img [ref=e19]
+            - generic [ref=e24]: RSS Feed
+        - paragraph [ref=e25]: Science Fiction Author
+        - paragraph [ref=e26]: Exploring the intersections of technology, humanity, and the future. Welcome to my corner of the web where I share updates about my books, writing process, and thoughts on the genre I love.
+        - generic [ref=e27]:
+          - generic [ref=e28]: "Connect:"
+          - generic [ref=e29]:
+            - link "Cache McClure on GitHub" [ref=e30] [cursor=pointer]:
+              - /url: https://github.com/cachemcclure
+              - img [ref=e31]
+              - generic [ref=e34]: Cache McClure on GitHub
+            - link "Cache McClure on X" [ref=e35] [cursor=pointer]:
+              - /url: https://x.com/cachemcclure
+              - img [ref=e36]
+              - generic [ref=e40]: Cache McClure on X
+            - link "Cache McClure on LinkedIn" [ref=e41] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/cachemcclure/
+              - img [ref=e42]
+              - generic [ref=e46]: Cache McClure on LinkedIn
+            - link "Send an email to Cache McClure" [ref=e47] [cursor=pointer]:
+              - /url: mailto:contact@cachemcclure.com
+              - img [ref=e48]
+              - generic [ref=e52]: Send an email to Cache McClure
+      - separator [ref=e54]
+      - generic [ref=e55]:
+        - generic [ref=e56]:
+          - heading "Latest Book" [level=2] [ref=e57]
+          - link "View All Books" [ref=e58] [cursor=pointer]:
+            - /url: /books/
+            - text: View All Books
+            - img [ref=e59]
+        - article [ref=e63]:
+          - link "Cover of Fracture Engine" [ref=e64] [cursor=pointer]:
+            - /url: /books/fracture-engine
+            - img "Cover of Fracture Engine" [ref=e65]
+          - generic [ref=e66]:
+            - generic [ref=e67]:
+              - generic [ref=e68]: Coming Soon
+              - generic [ref=e69]: "The Fracture Engines #1"
+            - link "Fracture Engine" [ref=e70] [cursor=pointer]:
+              - /url: /books/fracture-engine
+              - heading "Fracture Engine" [level=3] [ref=e71]
+            - generic [ref=e73]:
+              - img [ref=e74]
+              - time [ref=e77]: 14 Jun, 2025
+            - paragraph [ref=e78]: When reality itself shatters into twelve parallel layers, a diverse military squad must prevent cosmic convergence while uncovering conspiracies that span multiple dimensions.
+            - link "Learn More" [ref=e80] [cursor=pointer]:
+              - /url: /books/fracture-engine
+              - text: Learn More
+              - img [ref=e81]
+      - separator [ref=e84]
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - heading "Recent News" [level=2] [ref=e87]
+          - link "View All News" [ref=e88] [cursor=pointer]:
+            - /url: /news/
+            - text: View All News
+            - img [ref=e89]
+        - article [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e96]: Update
+            - generic [ref=e97]:
+              - img [ref=e98]
+              - time [ref=e101]: 13 Nov, 2025
+          - link "New Cover Art Options" [ref=e102] [cursor=pointer]:
+            - /url: /news/2025-11-cover-art
+            - heading "New Cover Art Options" [level=3] [ref=e103]
+          - paragraph [ref=e104]: Just got some new options for the hardback cover art!
+          - link "Read More" [ref=e106] [cursor=pointer]:
+            - /url: /news/2025-11-cover-art
+            - text: Read More
+            - img [ref=e107]
+      - separator [ref=e110]
+      - generic [ref=e112]:
+        - heading "Stay Updated" [level=2] [ref=e113]
+        - paragraph [ref=e114]: Get the latest news about book releases, events, and exclusive content delivered to your inbox.
+        - paragraph [ref=e115]: Newsletter signup coming soon!
+  - contentinfo [ref=e116]:
+    - separator [ref=e118]
+    - generic [ref=e119]:
+      - generic [ref=e120]:
+        - link "Cache McClure on GitHub" [ref=e121] [cursor=pointer]:
+          - /url: https://github.com/cachemcclure
+          - img [ref=e122]
+          - generic [ref=e125]: Cache McClure on GitHub
+        - link "Cache McClure on X" [ref=e126] [cursor=pointer]:
+          - /url: https://x.com/cachemcclure
+          - img [ref=e127]
+          - generic [ref=e131]: Cache McClure on X
+        - link "Cache McClure on LinkedIn" [ref=e132] [cursor=pointer]:
+          - /url: https://www.linkedin.com/in/cachemcclure/
+          - img [ref=e133]
+          - generic [ref=e137]: Cache McClure on LinkedIn
+        - link "Send an email to Cache McClure" [ref=e138] [cursor=pointer]:
+          - /url: mailto:contact@cachemcclure.com
+          - img [ref=e139]
+          - generic [ref=e143]: Send an email to Cache McClure
+      - generic [ref=e144]:
+        - generic [ref=e145]: Copyright © 2025
+        - generic [ref=e146]: All rights reserved.
+```
