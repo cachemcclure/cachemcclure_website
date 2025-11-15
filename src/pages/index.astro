@@ -47,6 +47,7 @@ const recentNews = publishedNews.slice(0, 3);
           title="RSS Feed"
         >
           <IconRss
+            aria-hidden="true"
             width={20}
             height={20}
             class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
@@ -88,10 +89,10 @@ const recentNews = publishedNews.slice(0, 3);
               class="text-sm font-medium hover:underline"
             >
               View All Books
-              <IconArrowRight class="ms-1 inline-block h-4 w-4 rtl:-rotate-180" />
+              <IconArrowRight aria-hidden="true" class="ms-1 inline-block h-4 w-4 rtl:-rotate-180" />
             </LinkButton>
           </div>
-          <BookCard variant="h2" {...latestBook} />
+          <BookCard variant="h3" {...latestBook} />
         </section>
       )
     }
@@ -109,7 +110,7 @@ const recentNews = publishedNews.slice(0, 3);
               class="text-sm font-medium hover:underline"
             >
               View All News
-              <IconArrowRight class="ms-1 inline-block h-4 w-4 rtl:-rotate-180" />
+              <IconArrowRight aria-hidden="true" class="ms-1 inline-block h-4 w-4 rtl:-rotate-180" />
             </LinkButton>
           </div>
           <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

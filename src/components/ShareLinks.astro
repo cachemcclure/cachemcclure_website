@@ -14,6 +14,7 @@ const URL = Astro.url;
           <LinkButton
             href={`${social.href + URL}`}
             class="scale-90 p-2 hover:rotate-6 sm:p-1"
+            ariaLabel={social.linkTitle}
             title={social.linkTitle}
           >
             <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />

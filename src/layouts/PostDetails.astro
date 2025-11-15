@@ -132,7 +132,8 @@ const nextPost =
     <hr class="my-6 border-dashed" />
 
     <!-- Previous/Next Post Buttons -->
-    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <nav aria-label="Post navigation" data-pagefind-ignore>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
       {
         prevPost && (
           <a
@@ -161,7 +162,8 @@ const nextPost =
           </a>
         )
       }
-    </div>
+      </div>
+    </nav>
   </main>
   <Footer />
 </Layout>
@@ -220,6 +222,7 @@ const nextPost =
       link.className =
         "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
       link.href = "#" + heading.id;
+      link.setAttribute("aria-label", `Link to ${heading.textContent}`);
 
       const span = document.createElement("span");
       span.ariaHidden = "true";
