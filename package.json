@@ -20,6 +20,7 @@
     "test": "playwright test",
     "test:header": "playwright test tests/header.spec.ts",
     "test:footer": "playwright test tests/footer.spec.ts",
+    "test:book-card": "playwright test tests/book-card.spec.ts",
     "test:responsive": "playwright test tests/responsive/",
     "test:keyboard": "playwright test tests/keyboard-navigation.spec.ts",
     "test:heading": "node tests/heading-hierarchy.test.mjs",
