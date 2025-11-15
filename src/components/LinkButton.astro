@@ -16,6 +16,11 @@ const {
   title,
   disabled = false,
 } = Astro.props;
+
+// Check if link is external (starts with http:// or https://)
+const isExternal = href.startsWith("http://") || href.startsWith("https://");
+const targetAttr = isExternal ? "_blank" : undefined;
+const relAttr = isExternal ? "noopener noreferrer" : undefined;
 ---
 
 {
@@ -35,6 +40,8 @@ const {
       class:list={["group inline-block hover:text-accent", className]}
       aria-label={ariaLabel}
       title={title}
+      target={targetAttr}
+      rel={relAttr}
     >
       <slot />
     </a>

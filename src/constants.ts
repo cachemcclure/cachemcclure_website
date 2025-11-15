@@ -3,6 +3,8 @@ import IconMail from "@/assets/icons/IconMail.svg";
 import IconGitHub from "@/assets/icons/IconGitHub.svg";
 import IconBrandX from "@/assets/icons/IconBrandX.svg";
 import IconLinkedin from "@/assets/icons/IconLinkedin.svg";
+import IconInstagram from "@/assets/icons/IconInstagram.svg";
+import IconGoodreads from "@/assets/icons/IconGoodreads.svg";
 import IconWhatsapp from "@/assets/icons/IconWhatsapp.svg";
 import IconFacebook from "@/assets/icons/IconFacebook.svg";
 import IconTelegram from "@/assets/icons/IconTelegram.svg";
@@ -18,22 +20,34 @@ interface Social {
 
 export const SOCIALS: Social[] = [
   {
-    name: "GitHub",
-    href: "https://github.com/cachemcclure", // TODO: Update with actual GitHub username
-    linkTitle: `${SITE.title} on GitHub`,
-    icon: IconGitHub,
-  },
-  {
     name: "X",
     href: "https://x.com/cachemcclure", // TODO: Update with actual X/Twitter username
     linkTitle: `${SITE.title} on X`,
     icon: IconBrandX,
   },
   {
+    name: "Instagram",
+    href: "https://instagram.com/cachemcclure", // TODO: Update with actual Instagram username
+    linkTitle: `${SITE.title} on Instagram`,
+    icon: IconInstagram,
+  },
+  {
+    name: "Goodreads",
+    href: "https://www.goodreads.com/cachemcclure", // TODO: Update with actual Goodreads profile URL
+    linkTitle: `${SITE.title} on Goodreads`,
+    icon: IconGoodreads,
+  },
+  {
     name: "LinkedIn",
     href: "https://www.linkedin.com/in/cachemcclure/", // TODO: Update with actual LinkedIn username
     linkTitle: `${SITE.title} on LinkedIn`,
     icon: IconLinkedin,
+  },
+  {
+    name: "GitHub",
+    href: "https://github.com/cachemcclure", // TODO: Update with actual GitHub username
+    linkTitle: `${SITE.title} on GitHub`,
+    icon: IconGitHub,
   },
   {
     name: "Mail",
