@@ -1,0 +1,117 @@
+---
+/**
+ * BuyLinks Component
+ *
+ * Displays a list of prominent, touch-friendly buttons for purchasing books
+ * from various retailers. Includes retailer icons, external link indicators,
+ * and full accessibility support.
+ *
+ * @param buyLinks - Array of {name, url} objects for each retailer
+ * @param status - Book status: "published" | "upcoming" | "draft"
+ * @param class - Optional additional CSS classes
+ */
+
+export interface Props {
+  buyLinks: Array<{
+    name: string;
+    url: string;
+  }>;
+  status: "published" | "upcoming" | "draft";
+  class?: string;
+}
+
+const { buyLinks = [], status = "published", class: className = "" } = Astro.props;
+
+// Determine the heading text based on status
+const headingText = status === "published" ? "Buy Now" : "Pre-Order";
+
+// Map retailer names to their icons (case-insensitive matching)
+const getRetailerIcon = (name: string) => {
+  const normalizedName = name.toLowerCase().trim();
+
+  // Amazon
+  if (normalizedName.includes("amazon")) {
+    return `<svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5" aria-hidden="true">
+      <path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726-1.53.406-3.045.608-4.516.608-2.265 0-4.572-.346-6.906-1.036-2.334-.69-4.375-1.616-6.124-2.776-.12-.08-.226-.194-.316-.35-.046-.096-.054-.18-.026-.235z"/>
+      <path d="M21.854 16.78c-.174-.232-.45-.348-.83-.348-.244 0-.52.08-.83.24-.308.16-.56.354-.754.58-.51.606-.62 1.206-.33 1.8.29.594.87.892 1.74.892.54 0 1.01-.155 1.41-.465.4-.31.6-.695.6-1.155 0-.44-.14-.85-.42-1.23l.414-.314zm-16.92-5.536c0-1.524.366-2.72 1.098-3.588.732-.868 1.722-1.302 2.97-1.302.828 0 1.524.18 2.088.54.564.36.972.87 1.224 1.53h.048c.384-.78.888-1.35 1.512-1.71.624-.36 1.326-.54 2.106-.54 1.248 0 2.238.434 2.97 1.302.732.868 1.098 2.064 1.098 3.588v5.124c0 .348-.09.624-.27.828-.18.204-.426.306-.738.306h-.96c-.312 0-.558-.102-.738-.306-.18-.204-.27-.48-.27-.828v-5.124c0-.78-.162-1.38-.486-1.8-.324-.42-.798-.63-1.422-.63-.636 0-1.152.228-1.548.684-.396.456-.594 1.086-.594 1.89v4.98c0 .348-.09.624-.27.828-.18.204-.426.306-.738.306h-.96c-.312 0-.558-.102-.738-.306-.18-.204-.27-.48-.27-.828v-5.124c0-.78-.162-1.38-.486-1.8-.324-.42-.798-.63-1.422-.63-.636 0-1.152.228-1.548.684-.396.456-.594 1.086-.594 1.89v4.98c0 .348-.09.624-.27.828-.18.204-.426.306-.738.306h-.96c-.312 0-.558-.102-.738-.306-.18-.204-.27-.48-.27-.828V11.244z"/>
+    </svg>`;
+  }
+
+  // Barnes & Noble
+  if (normalizedName.includes("barnes") || normalizedName.includes("noble") || normalizedName.includes("b&n")) {
+    return `<svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5" aria-hidden="true">
+      <path d="M3 3v18h8V11h2v10h8V3H3zm6 16H5v-6h4v6zm0-8H5V5h4v6zm10 8h-4v-6h4v6zm0-8h-4V5h4v6z"/>
+    </svg>`;
+  }
+
+  // Apple Books
+  if (normalizedName.includes("apple") || normalizedName.includes("ibooks")) {
+    return `<svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5" aria-hidden="true">
+      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+    </svg>`;
+  }
+
+  // Kobo
+  if (normalizedName.includes("kobo")) {
+    return `<svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5" aria-hidden="true">
+      <path d="M3.5 3C2.67 3 2 3.67 2 4.5v15c0 .83.67 1.5 1.5 1.5h17c.83 0 1.5-.67 1.5-1.5v-15c0-.83-.67-1.5-1.5-1.5h-17zm1.25 2.5h14.5v11H4.75v-11zM7 7v1.5h2V7H7zm3.5 0v1.5h2V7h-2zM14 7v1.5h2V7h-2zm-7 3v1.5h2V10H7zm3.5 0v1.5h2V10h-2zM14 10v1.5h2V10h-2zm-7 3v1.5h10V13H7z"/>
+    </svg>`;
+  }
+
+  // Bookshop.org
+  if (normalizedName.includes("bookshop")) {
+    return `<svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5" aria-hidden="true">
+      <path d="M4 4v16h16V4H4zm2 2h12v12H6V6zm2 2v8h8V8H8zm1.5 1.5h5v5h-5v-5z"/>
+    </svg>`;
+  }
+
+  // Google Play Books
+  if (normalizedName.includes("google") || normalizedName.includes("play books")) {
+    return `<svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5" aria-hidden="true">
+      <path d="M12.5 3.5v17l-10-8.5 10-8.5zm1 0l10 8.5-10 8.5V12l4.29-3.64L13.5 3.5z"/>
+    </svg>`;
+  }
+
+  // Default book icon for unknown retailers
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+  </svg>`;
+};
+
+// External link icon
+const externalLinkIcon = `<svg class="h-4 w-4 ml-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+</svg>`;
+---
+
+{buyLinks.length > 0 ? (
+  <div class:list={["space-y-3", className]}>
+    <h2 class="text-xl font-bold text-foreground">
+      {headingText}
+    </h2>
+    {buyLinks.map(link => (
+      <a
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center justify-between gap-3 rounded-lg bg-accent px-6 py-4 font-semibold text-white transition-all hover:bg-accent/90 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent group min-h-[48px]"
+        aria-label={`${headingText === "Buy Now" ? "Buy" : "Pre-order"} ${link.name} (opens in new tab)`}
+        data-buy-link
+      >
+        <span class="flex items-center gap-3 flex-1">
+          <span set:html={getRetailerIcon(link.name)} class="flex-shrink-0" />
+          <span class="text-left">{link.name}</span>
+        </span>
+        <span set:html={externalLinkIcon} class="opacity-80 group-hover:opacity-100 transition-opacity" />
+      </a>
+    ))}
+  </div>
+) : (
+  <div class:list={["rounded-lg border border-border bg-muted p-4 text-center", className]}>
+    <p class="text-foreground/70">
+      {status === "upcoming"
+        ? "Pre-order links coming soon"
+        : "Purchase links coming soon"}
+    </p>
+  </div>
+)}

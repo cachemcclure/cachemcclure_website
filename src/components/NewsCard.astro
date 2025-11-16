@@ -1,7 +1,36 @@
 ---
+/**
+ * NewsCard Component
+ *
+ * A reusable card component for displaying news posts in listing pages.
+ * Displays publish date, category badge, title, description, and link to full post.
+ *
+ * Features:
+ * - Category badges (releases, events, updates) using the Badge component
+ * - Formatted publication date with Datetime component
+ * - Hover effects with border and shadow transitions
+ * - Responsive design
+ * - Full accessibility support (ARIA labels, semantic HTML, keyboard navigation)
+ * - Focus-within states for better keyboard accessibility
+ *
+ * @example
+ * ```astro
+ * <NewsCard
+ *   id="cover-reveal-2025"
+ *   data={{
+ *     title: "Cover Reveal: The Neural Uprising",
+ *     description: "See the stunning cover art for my upcoming sci-fi thriller!",
+ *     publishDate: new Date('2025-01-15'),
+ *     category: "releases"
+ *   }}
+ * />
+ * ```
+ */
+
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@/utils/slugify";
 import Datetime from "./Datetime.astro";
+import Badge from "./Badge.astro";
 
 export interface Props extends CollectionEntry<"news"> {
   variant?: "h2" | "h3";
@@ -13,58 +42,60 @@ const { title, description, publishDate, category } = data;
 
 const headerProps = {
   style: { viewTransitionName: slugifyStr(title) },
-  class: "text-lg font-semibold decoration-dashed hover:underline",
+  class:
+    "text-xl font-bold decoration-dashed hover:underline focus-visible:underline",
 };
 
-const categoryBadgeClass = {
-  releases: "bg-purple-600 text-white",
-  events: "bg-blue-600 text-white",
-  updates: "bg-orange-700 text-white", // WCAG AA compliant: 4.55:1 contrast ratio
-}[category];
-
+// Map category to display labels
 const categoryLabel = {
   releases: "Release",
   events: "Event",
   updates: "Update",
 }[category];
+
+const categoryBadgeVariant = `category-${category}` as const;
+
+// Generate aria-label for better screen reader support
+const ariaLabel = `${title}, ${categoryLabel} from ${publishDate.toLocaleDateString()}`;
 ---
 
-<article class="my-6 rounded-lg border border-border p-4 transition-all hover:border-accent hover:shadow-sm">
-  <div class="mb-2 flex flex-wrap items-center gap-2">
-    <span class={`rounded px-2 py-1 text-xs font-semibold uppercase ${categoryBadgeClass}`}>
-      {categoryLabel}
-    </span>
-    <Datetime pubDatetime={publishDate} modDatetime={null} timezone={undefined} />
-  </div>
+<article
+  class="group relative my-6 flex flex-col gap-4 rounded-lg border border-border p-4 transition-all hover:border-accent hover:shadow-md focus-within:border-accent focus-within:shadow-md"
+>
+  <div class="flex flex-col gap-3">
+    <!-- Category Badge and Date -->
+    <div class="flex flex-wrap items-center gap-3">
+      <Badge
+        variant={categoryBadgeVariant}
+        text={categoryLabel}
+        class="uppercase"
+      />
+      <Datetime
+        pubDatetime={publishDate}
+        modDatetime={null}
+        timezone={undefined}
+      />
+    </div>
 
-  <a
-    href={`/news/${id}`}
-    class="inline-block text-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0"
-  >
-    {
-      variant === "h2" ? (
-        <h2 {...headerProps}>{title}</h2>
-      ) : (
-        <h3 {...headerProps}>{title}</h3>
-      )
-    }
-  </a>
-
-  <p class="mt-2 text-foreground/80">{description}</p>
-
-  <div class="mt-3">
+    <!-- Title Link -->
     <a
       href={`/news/${id}`}
-      class="inline-flex items-center text-sm font-medium text-accent hover:underline"
+      class="inline-block text-accent decoration-dashed underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent focus-visible:no-underline focus-visible:underline-offset-0"
+      aria-label={ariaLabel}
     >
-      Read More
-      <svg aria-hidden="true" class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M9 5l7 7-7 7"></path>
-      </svg>
+      {
+        variant === "h2" ? (
+          <h2 {...headerProps}>{title}</h2>
+        ) : (
+          <h3 {...headerProps}>{title}</h3>
+        )
+      }
+      <span class="sr-only">
+        {categoryLabel} from {publishDate.toLocaleDateString()}
+      </span>
     </a>
+
+    <!-- Description -->
+    <p class="text-foreground/80">{description}</p>
   </div>
 </article>

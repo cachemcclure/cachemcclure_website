@@ -4,6 +4,7 @@ import BookLayout from "@/layouts/BookLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import BackButton from "@/components/BackButton.astro";
+import BuyLinks from "@/components/BuyLinks.astro";
 import { SITE } from "@/config";
 import { slugifyStr } from "@/utils/slugify";
 
@@ -145,46 +146,7 @@ const layoutProps = {
           />
 
           <!-- Buy Links -->
-          {
-            buyLinks.length > 0 ? (
-              <div class="space-y-3">
-                <h2 class="text-xl font-bold text-foreground">
-                  {status === "published" ? "Buy Now" : "Pre-Order"}
-                </h2>
-                {buyLinks.map(link => (
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="flex items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3 font-semibold text-white transition-colors hover:bg-accent/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                  >
-                    {link.name}
-                    <svg
-                      class="h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                  </a>
-                ))}
-              </div>
-            ) : (
-              <div class="rounded-lg border border-border bg-muted p-4 text-center">
-                <p class="text-foreground/70">
-                  {status === "upcoming"
-                    ? "Pre-order links coming soon"
-                    : "Purchase links coming soon"}
-                </p>
-              </div>
-            )
-          }
+          <BuyLinks buyLinks={buyLinks} status={status} />
 
           <!-- ISBN -->
           {
