@@ -2,6 +2,7 @@
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
+import SEO from "@/components/SEO.astro";
 import "@/styles/global.css";
 
 export interface Props {
@@ -24,12 +25,12 @@ export interface Props {
 }
 
 const {
-  title = SITE.title,
-  author = SITE.author,
-  profile = SITE.profile,
-  description = SITE.desc,
-  ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",
-  canonicalURL = new URL(Astro.url.pathname, Astro.url),
+  title,
+  author,
+  profile,
+  description,
+  ogImage,
+  canonicalURL,
   pubDatetime,
   scrollSmooth = false,
   // Book-specific
@@ -41,58 +42,6 @@ const {
   reviews = [],
   coverImage,
 } = Astro.props;
-
-const socialImageURL = new URL(ogImage, Astro.url);
-
-// Book-specific structured data (JSON-LD)
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Book",
-  name: title,
-  description: description,
-  ...(isbn && { isbn: isbn }),
-  author: {
-    "@type": "Person",
-    name: author,
-    url: profile,
-  },
-  ...(coverImage && {
-    image: new URL(coverImage, Astro.url.origin).href,
-  }),
-  ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),
-  ...(series && {
-    isPartOf: {
-      "@type": "BookSeries",
-      name: series,
-      ...(seriesOrder && { position: seriesOrder }),
-    },
-  }),
-  ...(buyLinks.length > 0 && {
-    offers: buyLinks.map(link => ({
-      "@type": "Offer",
-      availability:
-        status === "published"
-          ? "https://schema.org/InStock"
-          : "https://schema.org/PreOrder",
-      seller: {
-        "@type": "Organization",
-        name: link.name,
-      },
-      url: link.url,
-    })),
-  }),
-  ...(reviews &&
-    reviews.length > 0 && {
-      review: reviews.map(review => ({
-        "@type": "Review",
-        reviewBody: review.quote,
-        author: {
-          "@type": "Person",
-          name: review.attribution,
-        },
-      })),
-    }),
-};
 ---
 
 <!doctype html>
@@ -105,53 +54,28 @@ const structuredData = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- General Meta Tags -->
-    <title>{title}</title>
-    <meta name="title" content={title} />
-    <meta name="description" content={description} />
-    <meta name="author" content={author} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={socialImageURL} />
-    <meta property="og:type" content="book" />
-
-    <!-- Article Published time -->
-    {
-      pubDatetime && (
-        <meta
-          property="article:published_time"
-          content={pubDatetime.toISOString()}
-        />
-      )
-    }
-
-    <!-- Book-specific meta tags -->
-    {isbn && <meta property="book:isbn" content={isbn} />}
-    {series && <meta property="book:series" content={series} />}
-    <meta property="book:author" content={author} />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImageURL} />
-
-    <!-- Google JSON-LD Structured data for Books -->
-    <script
-      type="application/ld+json"
-      is:inline
-      set:html={JSON.stringify(structuredData)}
+    <!-- SEO Meta Tags (centralized) -->
+    <SEO
+      title={title}
+      description={description}
+      author={author}
+      profile={profile}
+      ogImage={ogImage}
+      canonicalURL={canonicalURL}
+      pubDatetime={pubDatetime}
+      type="book"
+      isbn={isbn}
+      series={series}
+      seriesOrder={seriesOrder}
+      status={status}
+      buyLinks={buyLinks}
+      reviews={reviews}
+      coverImage={coverImage}
     />
 
-    <!-- Enable RSS feed auto-discovery  -->
+    <!-- Enable RSS feed auto-discovery -->
     <link
       rel="alternate"
       type="application/rss+xml"

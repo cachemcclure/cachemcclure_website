@@ -23,6 +23,8 @@
     "test:book-card": "playwright test tests/book-card.spec.ts",
     "test:news-card": "playwright test tests/news-card.spec.ts",
     "test:buy-links": "playwright test tests/buy-links.spec.ts",
+    "test:seo": "playwright test tests/seo.spec.ts",
+    "test:typography": "playwright test tests/typography.spec.ts",
     "test:responsive": "playwright test tests/responsive/",
     "test:keyboard": "playwright test tests/keyboard-navigation.spec.ts",
     "test:heading": "node tests/heading-hierarchy.test.mjs",
