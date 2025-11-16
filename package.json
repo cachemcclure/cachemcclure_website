@@ -25,6 +25,7 @@
     "test:buy-links": "playwright test tests/buy-links.spec.ts",
     "test:seo": "playwright test tests/seo.spec.ts",
     "test:typography": "playwright test tests/typography.spec.ts",
+    "test:global-styles": "playwright test tests/global-styles.spec.ts",
     "test:responsive": "playwright test tests/responsive/",
     "test:keyboard": "playwright test tests/keyboard-navigation.spec.ts",
     "test:heading": "node tests/heading-hierarchy.test.mjs",
