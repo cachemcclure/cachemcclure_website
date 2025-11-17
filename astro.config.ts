@@ -18,7 +18,65 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: page => SITE.showArchives || !page.endsWith("/archives"),
+      filter: page => {
+        // Exclude archives if showArchives is false
+        if (!SITE.showArchives && page.endsWith("/archives/")) return false;
+
+        // Exclude debug pages
+        if (page.includes("/debug/")) return false;
+
+        // Exclude disabled pages
+        if (page.includes(".disabled/")) return false;
+
+        // Exclude search page (not useful for SEO)
+        if (page.endsWith("/search/")) return false;
+
+        // Exclude posts and tags pages (using news instead)
+        if (page.endsWith("/posts/") || page.endsWith("/tags/")) return false;
+
+        return true;
+      },
+      serialize: item => {
+        const url = item.url;
+
+        // Homepage
+        if (url.endsWith("cachemcclure.com/")) {
+          item.priority = 1.0;
+          item.changefreq = "weekly" as any;
+        }
+        // Individual book pages
+        else if (url.includes("/books/") && !url.endsWith("/books/")) {
+          item.priority = 0.9;
+          item.changefreq = "monthly" as any;
+        }
+        // Books index
+        else if (url.endsWith("/books/")) {
+          item.priority = 0.9;
+          item.changefreq = "weekly" as any;
+        }
+        // About page
+        else if (url.endsWith("/about/")) {
+          item.priority = 0.8;
+          item.changefreq = "monthly" as any;
+        }
+        // Individual news posts
+        else if (url.includes("/news/") && !url.endsWith("/news/")) {
+          item.priority = 0.7;
+          item.changefreq = "monthly" as any;
+        }
+        // News index
+        else if (url.endsWith("/news/")) {
+          item.priority = 0.7;
+          item.changefreq = "weekly" as any;
+        }
+        // All other pages
+        else {
+          item.priority = 0.5;
+          item.changefreq = "monthly" as any;
+        }
+
+        return item;
+      },
     }),
   ],
   markdown: {
