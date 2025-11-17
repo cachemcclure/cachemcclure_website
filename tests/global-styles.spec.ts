@@ -270,10 +270,14 @@ test.describe("Global Styles - Focus States", () => {
         try {
           const rules = Array.from(sheet.cssRules || []);
           hasFocusRule = rules.some(
-            rule =>
-              rule.selectorText &&
-              (rule.selectorText.includes(":focus-visible") ||
-                rule.selectorText.includes("focus-visible"))
+            rule => {
+              const styleRule = rule as CSSStyleRule;
+              return (
+                styleRule.selectorText &&
+                (styleRule.selectorText.includes(":focus-visible") ||
+                  styleRule.selectorText.includes("focus-visible"))
+              );
+            }
           );
           if (hasFocusRule) break;
         } catch (e) {
@@ -301,11 +305,15 @@ test.describe("Global Styles - Focus States", () => {
         try {
           const rules = Array.from(sheet.cssRules || []);
           hasFocusRule = rules.some(
-            rule =>
-              rule.selectorText &&
-              rule.selectorText.includes(":focus-visible") &&
-              (rule.selectorText.includes("button") ||
-                rule.selectorText.includes("*"))
+            rule => {
+              const styleRule = rule as CSSStyleRule;
+              return (
+                styleRule.selectorText &&
+                styleRule.selectorText.includes(":focus-visible") &&
+                (styleRule.selectorText.includes("button") ||
+                  styleRule.selectorText.includes("*"))
+              );
+            }
           );
           if (hasFocusRule) break;
         } catch (e) {

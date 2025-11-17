@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
 import NewsLayout from "@/layouts/NewsLayout.astro";
 import Header from "@/components/Header.astro";
@@ -58,7 +59,7 @@ if (typeof initOgImage === "string") {
 } else if (initOgImage?.src) {
   ogImageUrl = initOgImage.src;
 } else if (image) {
-  ogImageUrl = image;
+  ogImageUrl = image.src;
 }
 
 const ogImage = ogImageUrl
@@ -85,7 +86,7 @@ const formattedDate = publishDate.toLocaleDateString("en-US", {
   day: "numeric",
 });
 
-// Props for NewsLayout
+// Props for NewsLayout (convert image to string for SEO metadata)
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
   description: description,
@@ -93,9 +94,9 @@ const layoutProps = {
   canonicalURL: new URL(Astro.url.pathname, Astro.url).href,
   pubDatetime: publishDate,
   scrollSmooth: true,
-  // News-specific props for structured data
+  // News-specific props for structured data (image needs to be string for SEO)
   category,
-  image,
+  image: image?.src,
 };
 ---
 
@@ -142,11 +143,16 @@ const layoutProps = {
       {
         image && (
           <div class="mb-8">
-            <img
+            <Image
               src={image}
               alt={imageAlt || `Featured image for ${title}`}
+              widths={[800, 1200, 1600]}
+              sizes="(min-width: 1024px) 1024px, 100vw"
               class="w-full rounded-lg shadow-lg"
               loading="eager"
+              decoding="async"
+              format="webp"
+              quality="high"
             />
           </div>
         )

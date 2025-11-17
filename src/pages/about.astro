@@ -1,10 +1,12 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import Socials from "@/components/Socials.astro";
 import { SITE } from "@/config";
+import authorImage from "@/assets/images/cache-mcclure-author.svg";
 
 const pageTitle = "About";
 const pageDescription =
@@ -26,10 +28,17 @@ const pageDescription =
 
       <!-- Author Photo -->
       <div class="my-8 flex justify-center">
-        <img
-          src="/images/cache-mcclure-author.svg"
+        <Image
+          src={authorImage}
           alt="Cache McClure, science fiction author"
+          width={256}
+          height={256}
+          widths={[192, 256, 384]}
+          sizes="(min-width: 640px) 256px, 192px"
           class="h-48 w-48 rounded-full border-2 border-accent sm:h-64 sm:w-64"
+          loading="eager"
+          decoding="async"
+          quality="high"
         />
       </div>
 

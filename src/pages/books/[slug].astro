@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
 import BookLayout from "@/layouts/BookLayout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -50,7 +51,8 @@ if (typeof initOgImage === "string") {
 } else if (initOgImage?.src) {
   ogImageUrl = initOgImage.src;
 } else {
-  ogImageUrl = coverImage; // Fallback to cover image
+  // coverImage is now an image object, extract the src
+  ogImageUrl = typeof coverImage === "string" ? coverImage : coverImage.src;
 }
 
 const ogImage = ogImageUrl
@@ -92,7 +94,8 @@ const layoutProps = {
   status,
   buyLinks,
   reviews,
-  coverImage,
+  // Convert coverImage to string for structured data
+  coverImage: typeof coverImage === "string" ? coverImage : coverImage.src,
 };
 ---
 
@@ -138,11 +141,18 @@ const layoutProps = {
       <div class="lg:col-span-1">
         <div class="sticky top-4">
           <!-- Cover Image -->
-          <img
+          <Image
             src={coverImage}
             alt={`Cover of ${title}`}
+            width={600}
+            height={900}
+            widths={[300, 600, 900]}
+            sizes="(min-width: 1024px) 300px, (min-width: 640px) 400px, 100vw"
             class="mb-6 w-full rounded-lg shadow-2xl"
             loading="eager"
+            decoding="async"
+            format="webp"
+            quality="high"
           />
 
           <!-- Buy Links -->

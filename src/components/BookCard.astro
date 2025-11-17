@@ -45,14 +45,18 @@ const ariaLabel = seriesInfo
   class="group relative my-6 flex flex-col gap-4 rounded-lg border border-border p-4 transition-all hover:border-accent hover:shadow-md focus-within:border-accent focus-within:shadow-md sm:flex-row sm:gap-6"
 >
   <div class="flex-shrink-0">
-    <img
+    <Image
       src={coverImage}
       alt={`Cover of ${title}`}
-      width="160"
-      height="224"
+      width={320}
+      height={448}
+      widths={[160, 320, 480]}
+      sizes="(min-width: 640px) 160px, 128px"
       class="h-48 w-32 rounded object-cover shadow-md transition-transform group-hover:scale-105 sm:h-56 sm:w-40"
       loading="lazy"
       decoding="async"
+      format="webp"
+      quality="high"
     />
   </div>
 

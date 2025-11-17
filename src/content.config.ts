@@ -69,12 +69,15 @@ const books = defineCollection({
       description: z.string(),
 
       /**
-       * Cover image path (required)
-       * Path to the book cover image relative to the public directory.
-       * Recommended: 600x900px WebP format for optimal performance.
-       * @example "/covers/neural-uprising.webp"
+       * Cover image (required)
+       * Path to the book cover image - can be:
+       * 1. Relative path from book MDX file (e.g., "../../assets/covers/book-cover.png")
+       * 2. Image import reference for automatic optimization
+       * Astro will automatically optimize and convert to WebP at build time.
+       * Recommended source: PNG/JPG at 600x900px or higher for quality.
+       * @example "../../assets/covers/neural-uprising.png"
        */
-      coverImage: z.string(),
+      coverImage: image(),
 
       /**
        * Publication date (required)
@@ -267,10 +270,11 @@ const news = defineCollection({
       /**
        * Feature image (optional)
        * Path to a hero or feature image for the news post.
+       * Can be a relative path from the news MDX file for automatic optimization.
        * Displayed at the top of the post or in cards.
-       * @example "/images/news/neural-uprising-cover-reveal.jpg"
+       * @example "../../assets/news/cover-reveal.jpg"
        */
-      image: z.string().optional(),
+      image: image().optional(),
 
       /**
        * Image alt text (optional, but required if image is provided)
