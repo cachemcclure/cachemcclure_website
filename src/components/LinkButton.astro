@@ -27,6 +27,8 @@ const relAttr = isExternal ? "noopener noreferrer" : undefined;
   disabled ? (
     <span
       id={id}
+      role="link"
+      tabindex="-1"
       class:list={["group inline-block", className]}
       title={title}
       aria-disabled={disabled}

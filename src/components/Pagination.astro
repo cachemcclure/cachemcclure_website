@@ -21,7 +21,7 @@ const { page } = Astro.props;
         class:list={["me-4 select-none", { "opacity-50": !page.url.prev }]}
         ariaLabel="Previous"
       >
-        <IconArrowLeft class="inline-block rtl:rotate-180" />
+        <IconArrowLeft aria-hidden="true" class="inline-block rtl:rotate-180" />
         Prev
       </LinkButton>
       {page.currentPage} / {page.lastPage}
@@ -32,7 +32,7 @@ const { page } = Astro.props;
         ariaLabel="Next"
       >
         Next
-        <IconArrowRight class="inline-block rtl:rotate-180" />
+        <IconArrowRight aria-hidden="true" class="inline-block rtl:rotate-180" />
       </LinkButton>
     </nav>
   )

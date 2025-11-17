@@ -33,6 +33,7 @@
     "test:icons": "playwright test tests/icons.spec.ts",
     "test:dark-mode": "playwright test tests/dark-mode.spec.ts",
     "test:responsive": "playwright test tests/responsive/",
+    "test:accessibility": "playwright test tests/accessibility.spec.ts",
     "test:keyboard": "playwright test tests/keyboard-navigation.spec.ts",
     "test:heading": "node tests/heading-hierarchy.test.mjs",
     "test:contrast": "node tests/color-contrast.test.mjs",

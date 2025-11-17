@@ -70,17 +70,29 @@ const isActive = (path: string) => {
           ]}
         >
           <li class="col-span-2">
-            <a href="/books" class:list={{ "active-nav": isActive("/books") }}>
+            <a
+              href="/books"
+              class:list={{ "active-nav": isActive("/books") }}
+              aria-current={isActive("/books") ? "page" : undefined}
+            >
               Books
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/news" class:list={{ "active-nav": isActive("/news") }}>
+            <a
+              href="/news"
+              class:list={{ "active-nav": isActive("/news") }}
+              aria-current={isActive("/news") ? "page" : undefined}
+            >
               News
             </a>
           </li>
           <li class="col-span-2">
-            <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
+            <a
+              href="/about"
+              class:list={{ "active-nav": isActive("/about") }}
+              aria-current={isActive("/about") ? "page" : undefined}
+            >
               About
             </a>
           </li>
