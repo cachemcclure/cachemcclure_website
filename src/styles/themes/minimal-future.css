@@ -5,6 +5,11 @@
  */
 
 @import "tailwindcss";
+
+/* Tailwind v4 content configuration - explicitly define which files to scan for class usage */
+@source "../../**/*.{astro,html,js,jsx,md,mdx,ts,tsx}";
+@source "../../../public/**/*.{html,js}";
+
 @import "../typography.css";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
