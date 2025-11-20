@@ -31,6 +31,7 @@
     "test:typography": "playwright test tests/typography.spec.ts",
     "test:global-styles": "playwright test tests/global-styles.spec.ts",
     "test:images": "playwright test tests/image-optimization.spec.ts",
+    "test:fonts": "playwright test tests/font-optimization.spec.ts",
     "test:icons": "playwright test tests/icons.spec.ts",
     "test:dark-mode": "playwright test tests/dark-mode.spec.ts",
     "test:responsive": "playwright test tests/responsive/",

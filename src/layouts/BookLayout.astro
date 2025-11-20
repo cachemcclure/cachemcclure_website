@@ -56,6 +56,25 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Preload Google Fonts CSS for faster font discovery -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap&subset=latin"
+    />
+
+    <!-- Load Space Grotesk for headings and JetBrains Mono for code -->
+    <!-- Using font-display: swap for optimal performance -->
+    <!-- Latin subset reduces file size by ~40% (sufficient for English content) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap&subset=latin"
+      rel="stylesheet"
+    />
+
     <!-- SEO Meta Tags (centralized) -->
     <SEO
       title={title}

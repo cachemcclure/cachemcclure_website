@@ -1,0 +1,144 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Skip to content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic [ref=e5]:
+      - link "Cache McClure" [ref=e6] [cursor=pointer]:
+        - /url: /
+      - navigation "Main navigation" [ref=e7]:
+        - list [ref=e8]:
+          - listitem [ref=e9]:
+            - link "Books" [ref=e10] [cursor=pointer]:
+              - /url: /books
+          - listitem [ref=e11]:
+            - link "News" [ref=e12] [cursor=pointer]:
+              - /url: /news
+          - listitem [ref=e13]:
+            - link "About" [ref=e14] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e15]:
+            - link "RSS Feed" [ref=e16] [cursor=pointer]:
+              - /url: /rss.xml
+              - img [ref=e17]
+              - generic [ref=e22]: RSS Feed
+          - listitem [ref=e23]:
+            - button "light" [ref=e24] [cursor=pointer]:
+              - img [ref=e25]
+              - img
+    - separator [ref=e29]
+  - link "Go back" [ref=e31] [cursor=pointer]:
+    - /url: /
+    - img [ref=e32]
+    - text: Go back
+  - main [ref=e35]:
+    - generic [ref=e36]:
+      - generic [ref=e37]:
+        - generic [ref=e38]: Coming Soon
+        - generic [ref=e39]: "The Fracture Engines #1"
+      - heading "Fracture Engine" [level=1] [ref=e40]
+      - paragraph [ref=e41]: Coming June 14, 2025
+    - generic [ref=e42]:
+      - generic [ref=e44]:
+        - img "Cover of Fracture Engine" [ref=e45]
+        - paragraph [ref=e47]: Pre-order links coming soon
+      - generic [ref=e48]:
+        - paragraph [ref=e50]: When reality itself shatters into twelve parallel layers, a diverse military squad must prevent cosmic convergence while uncovering conspiracies that span multiple dimensions.
+        - generic [ref=e51]:
+          - heading "About This Book" [level=2] [ref=e52]
+          - generic [ref=e53]: In a post-singularity universe where an ancient civilization accidentally shattered reality into twelve parallel layers, the fate of all existence hangs in the balance. Captain Veyra Krost leads the 77th Breacher Company—eight soldiers from different layers of reality, each with unique abilities shaped by their fractured worlds. When routine maintenance on a Fracture Engine reveals evidence of sabotage, the squad uncovers a conspiracy that threatens to accelerate the convergence of all layers—an event that would annihilate billions across multiple realities. As they hunt for answers across parallel worlds where physics itself changes, they must navigate not only hostile environments but also the political factions fighting for control of humanity's fate. From the industrial Forge Worlds to the bio-engineered paradises of the Green Veil, from post-apocalyptic Ashen Realms to the nightmare physics of the Deep Fracture, Fracture Engine combines military sci-fi action with cosmic-scale world-building and the intimate character dynamics of a squad learning to trust each other across the boundaries of reality itself.
+        - article [ref=e54]:
+          - heading "A Universe Shattered" [level=2] [ref=e55]
+          - paragraph [ref=e56]: Ten thousand years ago, the Architects built engines to manipulate reality itself. They succeeded beyond their wildest dreams—and their worst nightmares. The universe fractured into twelve parallel layers, each evolving in isolation, each developing unique cultures, technologies, and even physical laws.
+          - paragraph [ref=e57]: Now, the layers are collapsing back together. And someone is accelerating the convergence.
+          - heading "The 77th Breacher Company" [level=2] [ref=e58]
+          - paragraph [ref=e59]: Eight soldiers. Twelve realities. One impossible mission.
+          - paragraph [ref=e60]: Captain Veyra Krost can sense dimensional instabilities before any instrument detects them—a gift born from tragedy. Sergeant Thane Drovek survived the brutal Ashen Realms and trusts no one from the “soft” layers. Specialist Kael Sung downloaded their consciousness from pure data into flesh, seeking to understand what it means to be human.
+          - paragraph [ref=e61]: "Together with five other specialists from across the fractured universe, they form humanity’s first truly cross-layer military unit. Their mission: maintain the Fracture Engines that keep reality stable. Their discovery: someone is sabotaging the very technology that prevents total annihilation."
+          - heading "Military Sci-Fi Meets Cosmic Fantasy" [level=2] [ref=e62]
+          - paragraph [ref=e63]: "Fracture Engine combines:"
+          - list [ref=e64]:
+            - listitem [ref=e65]:
+              - strong [ref=e66]: Squad-based military action
+              - text: across impossible battlefields
+            - listitem [ref=e67]:
+              - strong [ref=e68]: Unique world-building
+              - text: with twelve distinct reality layers
+            - listitem [ref=e69]:
+              - strong [ref=e70]: Political intrigue
+              - text: spanning multiple governments and factions
+            - listitem [ref=e71]:
+              - strong [ref=e72]: Character-driven storytelling
+              - text: about found family and trust
+            - listitem [ref=e73]:
+              - strong [ref=e74]: High-stakes cosmic mystery
+              - text: with ancient technology and forgotten civilizations
+          - paragraph [ref=e75]:
+            - text: Perfect for fans of
+            - emphasis [ref=e76]: The Expanse
+            - text: ","
+            - emphasis [ref=e77]: Mass Effect
+            - text: ", and"
+            - emphasis [ref=e78]: Hyperion
+            - text: .
+          - heading "About the Series" [level=2] [ref=e79]
+          - paragraph [ref=e80]:
+            - strong [ref=e81]: The Fracture Engines
+            - text: is a five-book science fantasy series that escalates from military thriller to cosmic-scale conflict. Each book raises the stakes as the 77th uncovers deeper layers of conspiracy, faces threats from other dimensions, and ultimately confronts the truth about the Architects and their grand design.
+          - paragraph [ref=e82]: Book 1 establishes the world, introduces the squad, and sets them on a collision course with forces that would reshape reality itself.
+        - link "Back to All Books" [ref=e84] [cursor=pointer]:
+          - /url: /books
+          - img [ref=e85]
+          - text: Back to All Books
+  - contentinfo "Site footer" [ref=e87]:
+    - separator [ref=e89]
+    - complementary "Newsletter signup" [ref=e90]:
+      - heading "Stay Updated" [level=3] [ref=e91]
+      - paragraph [ref=e92]: Newsletter coming soon! Follow me on social media for the latest updates.
+    - separator [ref=e94]
+    - generic [ref=e95]:
+      - generic [ref=e96]:
+        - link "Cache McClure on X" [ref=e97] [cursor=pointer]:
+          - /url: https://x.com/cachemcclure
+          - img [ref=e98]
+          - generic [ref=e102]: Cache McClure on X
+        - link "Cache McClure on Instagram" [ref=e103] [cursor=pointer]:
+          - /url: https://instagram.com/cachemcclure
+          - img [ref=e104]
+          - generic [ref=e108]: Cache McClure on Instagram
+        - link "Cache McClure on Goodreads" [ref=e109] [cursor=pointer]:
+          - /url: https://www.goodreads.com/cachemcclure
+          - img [ref=e110]
+          - generic [ref=e114]: Cache McClure on Goodreads
+        - link "Cache McClure on LinkedIn" [ref=e115] [cursor=pointer]:
+          - /url: https://www.linkedin.com/in/cachemcclure/
+          - img [ref=e116]
+          - generic [ref=e120]: Cache McClure on LinkedIn
+        - link "Cache McClure on GitHub" [ref=e121] [cursor=pointer]:
+          - /url: https://github.com/cachemcclure
+          - img [ref=e122]
+          - generic [ref=e125]: Cache McClure on GitHub
+        - link "Send an email to Cache McClure" [ref=e126] [cursor=pointer]:
+          - /url: mailto:contact@cachemcclure.com
+          - img [ref=e127]
+          - generic [ref=e131]: Send an email to Cache McClure
+      - generic [ref=e132]:
+        - generic [ref=e133]: Copyright © 2025 Cache McClure
+        - generic [ref=e134]: "|"
+        - generic [ref=e135]: All rights reserved.
+  - generic [ref=e138]:
+    - button "Menu" [ref=e139]:
+      - img [ref=e141]
+      - generic: Menu
+    - button "Inspect" [ref=e145]:
+      - img [ref=e147]
+      - generic: Inspect
+    - button "Audit" [ref=e149]:
+      - img [ref=e151]
+      - generic: Audit
+    - button "Settings" [ref=e154]:
+      - img [ref=e156]
+      - generic: Settings
+```
