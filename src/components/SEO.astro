@@ -90,7 +90,7 @@ const robotsContent = [
 ].join(", ");
 
 // Generate structured data based on content type
-let structuredData: Record<string, any>;
+let structuredData: Record<string, any> | Array<Record<string, any>>;
 
 if (type === "book") {
   // Book schema (schema.org/Book)
@@ -172,19 +172,40 @@ if (type === "book") {
     ...(category && { articleSection: category }),
   };
 } else {
-  // Default: BlogPosting schema (schema.org/BlogPosting)
+  // Website type: Use @graph to combine WebSite and Person schemas
+  // This is recommended for homepage and main pages
   structuredData = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: title,
-    image: socialImageURL.toString(),
-    ...(pubDatetime && { datePublished: pubDatetime.toISOString() }),
-    ...(modDatetime && { dateModified: modDatetime.toISOString() }),
-    author: [
+    "@graph": [
+      // WebSite schema (schema.org/WebSite)
+      {
+        "@type": "WebSite",
+        "@id": new URL("/", Astro.url.origin).href + "#website",
+        url: new URL("/", Astro.url.origin).href,
+        name: SITE.title,
+        description: SITE.desc,
+        inLanguage: SITE.lang || "en",
+        // Potential Sitelinks Search Box (Google may use this)
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: new URL("/search?q={search_term_string}", Astro.url.origin).href,
+          },
+          "query-input": "required name=search_term_string",
+        },
+      },
+      // Person schema for the author (schema.org/Person)
       {
         "@type": "Person",
+        "@id": profile + "#person",
         name: author,
-        ...(profile && { url: profile }),
+        url: profile,
+        image: socialImageURL.toString(),
+        description: description,
+        jobTitle: "Science Fiction Author",
+        // Optionally add social media profiles here if available
+        // sameAs: ["https://twitter.com/cachemcclure", ...]
       },
     ],
   };
