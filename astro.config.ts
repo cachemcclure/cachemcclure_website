@@ -15,6 +15,12 @@ import { SITE } from "./src/config";
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
+  output: "static", // Explicit static site generation
+  compressHTML: true, // Compress HTML output (enabled by default, explicit for clarity)
+  build: {
+    format: "directory", // Generate /about/index.html (SEO-friendly, Cloudflare Pages compatible)
+    inlineStylesheets: "auto", // Inline stylesheets <4KB for better performance
+  },
   integrations: [
     mdx(),
     sitemap({
