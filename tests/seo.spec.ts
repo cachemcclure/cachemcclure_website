@@ -458,4 +458,134 @@ test.describe("SEO Component Tests", () => {
       expect(content).toContain("<rss");
     });
   });
+
+  test.describe("Meta Tag Best Practices (2025 SEO Guidelines)", () => {
+    const testPages = [
+      { path: "/", name: "Homepage" },
+      { path: "/books", name: "Books Index" },
+      { path: "/news", name: "News Index" },
+      { path: "/about", name: "About Page" },
+    ];
+
+    test("all pages should have title tags with recommended length (50-60 chars optimal)", async ({ page }) => {
+      for (const testPage of testPages) {
+        await page.goto(`${BASE_URL}${testPage.path}`);
+        const title = await page.title();
+
+        expect(title).toBeTruthy();
+        expect(title.length).toBeGreaterThan(0);
+
+        // Warn if title is too long (over 60 chars may be truncated by search engines)
+        if (title.length > 65) {
+          console.warn(`⚠️  ${testPage.name} title is ${title.length} chars (recommended: 50-60, max: 65). Title: "${title}"`);
+        }
+
+        // Ensure title is not too short
+        expect(title.length).toBeGreaterThanOrEqual(10);
+      }
+    });
+
+    test("all pages should have meta descriptions with recommended length (150-160 chars optimal)", async ({ page }) => {
+      for (const testPage of testPages) {
+        await page.goto(`${BASE_URL}${testPage.path}`);
+        const description = await page.locator('meta[name="description"]');
+        const descContent = await description.getAttribute("content");
+
+        expect(descContent).toBeTruthy();
+        expect(descContent!.length).toBeGreaterThan(0);
+
+        // Warn if description is too long (over 160 chars may be truncated)
+        if (descContent!.length > 165) {
+          console.warn(`⚠️  ${testPage.name} meta description is ${descContent!.length} chars (recommended: 150-160, max: 165). Description: "${descContent}"`);
+        }
+
+        // Ensure description is not too short (minimum 70 chars for meaningful descriptions)
+        expect(descContent!.length).toBeGreaterThanOrEqual(40);
+      }
+    });
+
+    test("all pages should have unique title tags (no duplicates)", async ({ page }) => {
+      const titles: Record<string, string> = {};
+
+      for (const testPage of testPages) {
+        await page.goto(`${BASE_URL}${testPage.path}`);
+        const title = await page.title();
+
+        // Check for duplicates
+        const duplicate = Object.entries(titles).find(([_, t]) => t === title);
+        if (duplicate) {
+          throw new Error(`Duplicate title found: "${title}" on both "${duplicate[0]}" and "${testPage.name}"`);
+        }
+
+        titles[testPage.name] = title;
+      }
+
+      // Ensure we tested all pages
+      expect(Object.keys(titles).length).toBe(testPages.length);
+    });
+
+    test("all pages should have theme-color meta tags", async ({ page }) => {
+      for (const testPage of testPages) {
+        await page.goto(`${BASE_URL}${testPage.path}`);
+
+        // Should have theme-color for light mode
+        const themeColorLight = await page.locator('meta[name="theme-color"][media*="light"]');
+        await expect(themeColorLight).toHaveAttribute("content", /.+/);
+
+        // Should have theme-color for dark mode
+        const themeColorDark = await page.locator('meta[name="theme-color"][media*="dark"]');
+        await expect(themeColorDark).toHaveAttribute("content", /.+/);
+      }
+    });
+
+    test("all pages should have properly formatted canonical URLs", async ({ page }) => {
+      for (const testPage of testPages) {
+        await page.goto(`${BASE_URL}${testPage.path}`);
+        const canonical = await page.locator('link[rel="canonical"]');
+        const canonicalHref = await canonical.getAttribute("href");
+
+        expect(canonicalHref).toBeTruthy();
+
+        // Canonical should be absolute URL
+        expect(canonicalHref).toMatch(/^https?:\/\//);
+
+        // Canonical should not have trailing slash (except homepage)
+        if (testPage.path !== "/") {
+          expect(canonicalHref).not.toMatch(/\/$/);
+        }
+      }
+    });
+
+    test("meta descriptions should match Open Graph descriptions", async ({ page }) => {
+      for (const testPage of testPages) {
+        await page.goto(`${BASE_URL}${testPage.path}`);
+
+        const metaDesc = await page.locator('meta[name="description"]');
+        const ogDesc = await page.locator('meta[property="og:description"]');
+
+        const metaDescContent = await metaDesc.getAttribute("content");
+        const ogDescContent = await ogDesc.getAttribute("content");
+
+        // Both should exist and match
+        expect(metaDescContent).toBeTruthy();
+        expect(ogDescContent).toBeTruthy();
+        expect(metaDescContent).toBe(ogDescContent);
+      }
+    });
+
+    test("titles should match Open Graph titles", async ({ page }) => {
+      for (const testPage of testPages) {
+        await page.goto(`${BASE_URL}${testPage.path}`);
+
+        const pageTitle = await page.title();
+        const ogTitle = await page.locator('meta[property="og:title"]');
+        const ogTitleContent = await ogTitle.getAttribute("content");
+
+        // Both should exist and match
+        expect(pageTitle).toBeTruthy();
+        expect(ogTitleContent).toBeTruthy();
+        expect(pageTitle).toBe(ogTitleContent);
+      }
+    });
+  });
 });

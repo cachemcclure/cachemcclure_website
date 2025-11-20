@@ -9,6 +9,7 @@ import Hr from "@/components/Hr.astro";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SOCIALS } from "@/constants";
+import { SITE } from "@/config";
 
 // Get books and news from content collections
 const allBooks = await getCollection("books");
@@ -29,9 +30,18 @@ const publishedNews = allNews
 
 // Get recent news (limit to 3)
 const recentNews = publishedNews.slice(0, 3);
+
+// SEO metadata for homepage
+const pageTitle = SITE.title;
+const pageDescription = SITE.desc;
 ---
 
-<BaseLayout mainId="main-content">
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalURL={new URL("/", SITE.website).href}
+  mainId="main-content"
+>
   <div data-layout="index">
     <!-- Hero Section -->
     <section id="hero" class="pt-8 pb-12">
