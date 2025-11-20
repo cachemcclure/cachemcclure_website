@@ -20,4 +20,7 @@ export const SITE = {
   dir: "ltr", // "rtl" | "auto"
   lang: "en", // html lang code. Set this empty and default will be "en"
   timezone: "America/Los_Angeles", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  // Twitter/X handles (optional) - include @ symbol
+  // twitterSite: "@cachemcclure", // Site's Twitter handle (uncomment when available)
+  // twitterCreator: "@cachemcclure", // Content creator's Twitter handle (uncomment when available)
 } as const;

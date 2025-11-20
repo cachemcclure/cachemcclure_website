@@ -38,6 +38,10 @@ export interface Props {
   reviews?: Array<{ quote: string; attribution: string }>;
   coverImage?: string;
 
+  // Twitter/X Card options
+  twitterSite?: string;
+  twitterCreator?: string;
+
   // Additional options
   noindex?: boolean;
   nofollow?: boolean;
@@ -62,6 +66,8 @@ const {
   buyLinks = [],
   reviews = [],
   coverImage,
+  twitterSite = (SITE as any).twitterSite,
+  twitterCreator = (SITE as any).twitterCreator,
   noindex = false,
   nofollow = false,
 } = Astro.props;
@@ -235,6 +241,8 @@ if (type === "book") {
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={socialImageURL} />
+{twitterSite && <meta name="twitter:site" content={twitterSite} />}
+{twitterCreator && <meta name="twitter:creator" content={twitterCreator} />}
 
 <!-- JSON-LD Structured Data -->
 <script

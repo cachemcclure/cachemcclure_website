@@ -45,6 +45,7 @@
     "test:sitemap": "playwright test tests/sitemap.spec.ts",
     "test:robots": "playwright test tests/robots.spec.ts",
     "test:rss": "playwright test tests/rss.spec.ts",
+    "test:twitter-cards": "playwright test tests/twitter-cards.spec.ts",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report",
     "test:debug": "playwright test --debug",
