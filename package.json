@@ -50,6 +50,7 @@
     "test:structured-data": "playwright test tests/structured-data.spec.ts",
     "test:css-purge": "playwright test tests/css-purge.spec.ts",
     "test:css-cleanup": "playwright test tests/css-cleanup.spec.ts",
+    "test:css-coverage": "playwright test tests/css-coverage.spec.ts --project=desktop",
     "test:javascript": "playwright test tests/javascript-optimization.spec.ts",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report",
