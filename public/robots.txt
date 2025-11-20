@@ -1,0 +1,29 @@
+# robots.txt for cachemcclure.com
+# Author Website - Allow all legitimate crawlers
+
+# Default rules for all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://cachemcclure.com/sitemap-index.xml
+
+# Block common AI scrapers (2025 best practice)
+# These can be uncommented if you want to prevent AI training on your content
+# User-agent: GPTBot
+# Disallow: /
+#
+# User-agent: ChatGPT-User
+# Disallow: /
+#
+# User-agent: CCBot
+# Disallow: /
+#
+# User-agent: anthropic-ai
+# Disallow: /
+#
+# User-agent: Claude-Web
+# Disallow: /
+#
+# User-agent: Google-Extended
+# Disallow: /

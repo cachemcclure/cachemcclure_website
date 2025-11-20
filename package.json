@@ -42,6 +42,7 @@
     "test:build": "node tests/build.test.mjs",
     "test:validation": "playwright test tests/validation.spec.ts",
     "test:sitemap": "playwright test tests/sitemap.spec.ts",
+    "test:robots": "playwright test tests/robots.spec.ts",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report",
     "test:debug": "playwright test --debug",
