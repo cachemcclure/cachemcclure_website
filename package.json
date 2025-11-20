@@ -27,6 +27,7 @@
     "test:news-card": "playwright test tests/news-card.spec.ts",
     "test:buy-links": "playwright test tests/buy-links.spec.ts",
     "test:seo": "playwright test tests/seo.spec.ts",
+    "test:og": "playwright test tests/open-graph.spec.ts",
     "test:typography": "playwright test tests/typography.spec.ts",
     "test:global-styles": "playwright test tests/global-styles.spec.ts",
     "test:images": "playwright test tests/image-optimization.spec.ts",
