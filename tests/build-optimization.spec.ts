@@ -326,7 +326,7 @@ test.describe("Performance Metrics", () => {
     await page.goto("http://localhost:4321");
 
     // Get JavaScript bundle size
-    const jsRequests = [];
+    const jsRequests: string[] = [];
     page.on("response", (response) => {
       const url = response.url();
       if (url.endsWith(".js") && response.status() === 200) {

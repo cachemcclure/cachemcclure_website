@@ -100,8 +100,8 @@ test.describe('CSS Coverage Analysis', () => {
           ranges.push(`${range.start}-${range.end}`);
         }
 
-        const totalBytes = entry.text.length;
-        const coveragePercent = ((usedBytes / totalBytes) * 100).toFixed(2);
+        const totalBytes = entry.text?.length || 0;
+        const coveragePercent = totalBytes > 0 ? ((usedBytes / totalBytes) * 100).toFixed(2) : '0.00';
 
         // Store or update coverage data
         if (!coverageData.has(filename)) {
@@ -279,7 +279,7 @@ test.describe('CSS Coverage Analysis', () => {
 
       // Simple check: look for obvious duplicate rules
       // This is a basic check - more sophisticated analysis would require parsing CSS AST
-      const lines = entry.text.split('\n');
+      const lines = entry.text?.split('\n') || [];
       const ruleCounts = new Map<string, number>();
 
       for (const line of lines) {
@@ -304,7 +304,7 @@ test.describe('CSS Coverage Analysis', () => {
 
       // This is a basic check, so we won't fail the test for duplicates
       // as they might be intentional (e.g., media query variations)
-      expect(entry.text.length).toBeGreaterThan(0);
+      expect(entry.text?.length || 0).toBeGreaterThan(0);
     }
 
     await browser.close();
@@ -332,7 +332,7 @@ test.describe('CSS Coverage Analysis', () => {
       }
 
       const filename = entry.url.split('/').pop() || entry.url;
-      const sizeKB = entry.text.length / 1024;
+      const sizeKB = (entry.text?.length || 0) / 1024;
 
       console.log(`${filename}: ${sizeKB.toFixed(2)} KB`);
 

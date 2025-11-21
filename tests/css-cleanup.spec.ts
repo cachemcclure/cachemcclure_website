@@ -311,7 +311,7 @@ test.describe('CSS Cleanup - Visual Regression Check', () => {
       await expect(footer).toBeVisible();
 
       // Verify no layout shift indicators (body has proper height)
-      const bodyHeight = await body.evaluate((el) => el.offsetHeight);
+      const bodyHeight = await body.evaluate((el) => (el instanceof HTMLElement ? el.offsetHeight : 0));
       expect(bodyHeight).toBeGreaterThan(400); // Reasonable minimum height
     });
   }

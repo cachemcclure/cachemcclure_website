@@ -108,7 +108,7 @@ test.describe('Tailwind v4 Purge Configuration', () => {
 
           expect(normalized).not.toContain(classNormalized);
         }
-      });
+      }
     });
   });
 });
